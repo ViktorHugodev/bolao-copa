@@ -58,6 +58,7 @@ export default function Home(props: HomeProps) {
               type="text"
               placeholder='Qual nome do seu bolão?' 
               onChange={event => setTitle(event.target.value)}
+              value={title}
               />
 
             <button
