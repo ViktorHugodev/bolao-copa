@@ -40,12 +40,14 @@ export function AuthContextProvider({ children }: AuthContextProps) {
       setIsUserLoading(false)
     }
   }
-
+ 
   async function signInWithGoogle(access_token: string){
     console.log('TOKEN ACC =>', access_token)
   }
   useEffect(() => {
-    if (response?.type === 'success' && response.authentication?.accessToken){}
+    if (response?.type === 'success' && response.authentication?.accessToken){
+      signInWithGoogle(response.authentication.accessToken)
+    }
   }, [response])
   return (
     <AuthContext.Provider value={{

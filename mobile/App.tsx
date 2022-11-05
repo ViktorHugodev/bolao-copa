@@ -4,6 +4,9 @@ import { Loading } from './src/components/Loading';
 import { SignIn } from './src/screens/SignIn';
 import { THEME } from './src/styles/THEME';
 import { AuthContextProvider } from './src/context/AuthContext';
+import { New } from './src/screens/New';
+import { Find } from './src/screens/Find';
+import { Pools } from './src/screens/Pools';
 
 export default function App() {
 
@@ -23,7 +26,7 @@ export default function App() {
         />
         {
           fontsLoaded ?
-            <SignIn />
+            <Pools />
             :
             <Loading />
         }
