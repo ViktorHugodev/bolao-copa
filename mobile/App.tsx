@@ -26,7 +26,7 @@ export default function App() {
         />
         {
           fontsLoaded ?
-            <Pools />
+            <SignIn />
             :
             <Loading />
         }
