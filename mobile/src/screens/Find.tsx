@@ -1,7 +1,7 @@
 import { VStack,  Heading } from 'native-base';
-import { Header } from '../../components/Header';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import { Header } from '../components/Header';
+import { Input } from '../components/Input';
+import { Button } from '../components/Button';
 export function Find() {
   return (
     <VStack flex={1} bgColor='gray.900'>

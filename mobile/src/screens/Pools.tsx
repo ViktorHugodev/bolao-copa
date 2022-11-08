@@ -13,7 +13,7 @@ export function Pools() {
         borderBottomWidth={1}
         borderBottomColor='gray.600'
         pb={4}
-        mb={4}>
+        mb={4}>w
         <Button
           leftIcon={<Icon as={Octicons} name='search' color='black' size='md' />}
           title='BUSCAR BOLÃO POR CÓDIGO' />

@@ -44,32 +44,42 @@ export async function betsRoutes(fastify: FastifyInstance) {
         }
       }
     })
+
     if (bet) {
       return response.status(400).send({
         message: 'You re already sent a bet to this game in this pool.'
       })
     }
+
     const game = await prisma.game.findUnique({
       where:{
         id: gameId
       }
     })
+
     if(!game) {
       return response.status(400).send({
         message: 'Game not found'
       })    
     }
+
     if(game.date < new Date()){
       return response.status(400).send({
         message: 'You cannot send a bet after the game'
       })
     }
     
-    return {
-      gameId,
-      poolId,
-      firstTeamGoals,
-      secondTeamGoals
-    }
+    await prisma.bets.create({
+      data:{
+        firstTeamGoals,
+        secondTeamGoals,
+        gameId,
+        participantId: participant.id
+
+
+      }
+    })
+
+    return response.status(201).send()
   })
 }

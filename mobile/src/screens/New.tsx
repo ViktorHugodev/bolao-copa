@@ -1,8 +1,8 @@
 import { VStack, Text, Heading } from 'native-base';
-import { Header } from '../../components/Header';
-import LogoImg from '../../assets/logo.svg'
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import LogoImg from '../assets/logo.svg'
+import { Header } from '../components/Header';
+import { Input } from '../components/Input';
+import { Button } from '../components/Button';
 export function New() {
   return (
     <VStack flex={1} bgColor='gray.900'>
@@ -28,12 +28,13 @@ export function New() {
           title='Criar meu bolão'
         />
 
-        <Text 
-        color='gray.200'
-        px={10}
-        mt={4} 
-        fontSize='sm' 
-        textAlign='center'>
+        <Text
+          color='gray.200'
+          px={10}
+          mt={4}
+          fontSize='sm'
+          textAlign='center'
+          >
           Após criar seu bolão, você receberá um código único que poderá usar para convidar outras pessoas.
         </Text>
       </VStack>
