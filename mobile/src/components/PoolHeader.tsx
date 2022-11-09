@@ -7,7 +7,8 @@ interface Props {
   data: PoolPros;
 }
 
-export function PoolHeader({ data }: Props) {
+export function PoolHeader({data}: Props) {
+  console.log('DATA =>', data)
   return (
     <HStack
       w="full"

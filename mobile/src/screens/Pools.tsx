@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { VStack, Icon, useToast, FlatList } from 'native-base'
 import { Octicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import {useFocusEffect} from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading } from '../components/Loading'
 import { api } from '../service/api'
 import { PoolCard, PoolPros } from '../components/PoolCard'
@@ -57,8 +57,13 @@ export function Pools() {
           <FlatList
             data={pools}
             keyExtractor={item => item.id}
-            ListEmptyComponent={() => <EmptyPoolList/>}
-            renderItem={({ item }) => <PoolCard data={item} />}
+            ListEmptyComponent={() => <EmptyPoolList />}
+            renderItem={({ item }) => (
+              <PoolCard
+                data={item}
+                onPress={() => navigate('details', { id: item.id })}
+              />
+            )}
             showsVerticalScrollIndicator={false}
             _contentContainerStyle={{
               py: 5
