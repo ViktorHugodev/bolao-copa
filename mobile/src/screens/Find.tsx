@@ -5,7 +5,7 @@ import { Button } from '../components/Button';
 export function Find() {
   return (
     <VStack flex={1} bgColor='gray.900'>
-      <Header title='Buscar por código' />
+      <Header title='Buscar por código' showBackButton={true}/>
       <VStack mt={8} mx={5} alignItems='center'>
 
         <Heading
