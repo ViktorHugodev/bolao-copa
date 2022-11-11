@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next'
 
 import { getSession, signIn,  useSession} from 'next-auth/react'
 import { useAuth } from '../context/AuthContext'
+import { api } from '../lib/api'
 
 interface ILogin {
   session: any
@@ -83,6 +84,14 @@ export default function Login({session}:ILogin) {
 
 export const getServerSideProps:GetServerSideProps = async (context) => {
   const session = await getSession(context)
+  const {accessToken} = session
+  const login = await api.post('/users',{
+    access_token: accessToken
+  })
+  api.defaults.headers.common['Authorization'] = `Bearer ${login.data.token}`
+  const userInfoResponse = await api.get('/me')
+  console.log('🚀 ~ file: login.tsx ~ line 93 ~ constgetServerSideProps:GetServerSideProps= ~ userInfoResponse', userInfoResponse.data)
+  console.log('LOGIN =>', login.data)
   // if(!!session) {
   //   return {
   //     redirect:{

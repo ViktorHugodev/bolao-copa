@@ -22,7 +22,9 @@ export function AuthContextProvider({children}:IAuthProvider){
 
   async function signInWithGoogle(){
     const response = await signIn('google')
+
     console.log('RESPONSE: ',response)
+
   }
 
   return (
