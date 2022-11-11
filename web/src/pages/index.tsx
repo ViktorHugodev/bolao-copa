@@ -6,6 +6,7 @@ import checkBoxImg from '../assets/icon-check.svg'
 import { GetServerSideProps } from 'next'
 import { api } from '../lib/api'
 import { FormEvent, useState } from 'react'
+import { getSession } from 'next-auth/react'
 
 interface HomeProps {
   poolsCount: number
@@ -101,13 +102,15 @@ export default function Home(props: HomeProps) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // const session = await getSession(context)
+
   const [poolRequest, betsRequest, usersRequest] = await Promise.all([
     api('/pools/count'),
     api('/bets/count'),
     api('/users/count')
   ])
-
+  
 
   return {
     props: {
