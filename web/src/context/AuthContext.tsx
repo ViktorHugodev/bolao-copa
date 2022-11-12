@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
-import { signIn, signOut} from 'next-auth/react'
+import { getSession, signIn, signOut, useSession} from 'next-auth/react'
 
 interface IAuthContext {
   user: IUser[]
@@ -21,9 +21,10 @@ export function AuthContextProvider({children}:IAuthProvider){
   const [user, setUser] = useState<IUser[]>([])
 
   async function signInWithGoogle(){
-    const response = await signIn('google')
+    await signIn('google')
+    const session = await getSession()
+    console.log('🚀 ~ file: AuthContext.tsx ~ line 26 ~ signInWithGoogle ~ session', session)
 
-    console.log('RESPONSE: ',response)
 
   }
 
