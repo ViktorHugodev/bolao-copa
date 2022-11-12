@@ -1,18 +1,14 @@
 import { GetServerSideProps } from 'next'
 
-import { getSession, signIn,  useSession} from 'next-auth/react'
+import { getCsrfToken, getSession, signIn, useSession, SignInResponse } from 'next-auth/react'
 import { useAuth } from '../context/AuthContext'
 import { api } from '../lib/api'
 
-interface ILogin {
-  session: any
-}
 
-export default function Login({session}:ILogin) {
-  const { signInWithGoogle} =useAuth()
-  const {data} = useSession()
-  console.log('session', session)
-  console.log('🚀 ~ file: login.tsx ~ line 8 ~ Login ~ sessionFron', data)
+export default function Login() {
+  const { signInWithGoogle } = useAuth()
+
+
   return (
     <div className='relative py-16 bg-gradient-to-br from-sky-50 to-gray-200 h-screen'>
       <div className='relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40'>
@@ -32,7 +28,7 @@ export default function Login({session}:ILogin) {
               </div>
               <div className='mt-16 grid space-y-4'>
                 <button
-                onClick={signInWithGoogle}
+                  onClick={signInWithGoogle}
                   className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
                 >
@@ -47,7 +43,6 @@ export default function Login({session}:ILogin) {
                     </span>
                   </div>
                 </button>
-                
               </div>
 
               <div className='mt-32 space-y-4 text-gray-600 text-center sm:-mb-8'>
@@ -82,27 +77,28 @@ export default function Login({session}:ILogin) {
   )
 }
 
-export const getServerSideProps:GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-  const {accessToken} = session
+export const getServerSideProps: GetServerSideProps = async context => {
+  const session = await getCsrfToken(context)
+  console.log('🚀 ~ file: login.tsx ~ line 82 ~ session', session)
   const login = await api.post('/users',{
-    access_token: accessToken
+    access_token: session
   })
-  api.defaults.headers.common['Authorization'] = `Bearer ${login.data.token}`
-  const userInfoResponse = await api.get('/me')
-  console.log('🚀 ~ file: login.tsx ~ line 93 ~ constgetServerSideProps:GetServerSideProps= ~ userInfoResponse', userInfoResponse.data)
-  console.log('LOGIN =>', login.data)
-  // if(!!session) {
+  console.log('🚀 ~ file: login.tsx ~ line 86 ~ login', login.data)
+  // if (session) {
   //   return {
-  //     redirect:{
-  //       destination:'/home',
-  //       permanent: false
-  //     }
+  //     redirect: {
+  //       destination: '/home',
+  //       permanent: false,
+  //     },
   //   }
   // }
+  // api.defaults.headers.common['Authorization'] = `Bearer ${login.data.token}`
+  // const userInfoResponse = await api.get('/me')
+  // console.log('🚀 ~ file: login.tsx ~ line 93 ~ constgetServerSideProps:GetServerSideProps= ~ userInfoResponse', userInfoResponse.data.me)
+
   return {
-    props:{
-      user: 'VIctor'
-    }
+    props: {
+      session,
+    },
   }
 }
