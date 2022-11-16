@@ -1,13 +1,17 @@
 import { GetServerSideProps } from 'next'
 
-import { getCsrfToken, getSession, signIn, useSession, SignInResponse } from 'next-auth/react'
+import {
+  getCsrfToken,
+  getSession,
+  signIn,
+  useSession,
+  SignInResponse,
+} from 'next-auth/react'
 import { useAuth } from '../context/AuthContext'
 import { api } from '../lib/api'
 
-
 export default function Login() {
-  const { signInWithGoogle } = useAuth()
-
+  const { loginWithGoogle } = useAuth()
 
   return (
     <div className='relative py-16 bg-gradient-to-br from-sky-50 to-gray-200 h-screen'>
@@ -28,7 +32,7 @@ export default function Login() {
               </div>
               <div className='mt-16 grid space-y-4'>
                 <button
-                  onClick={signInWithGoogle}
+                  onClick={loginWithGoogle}
                   className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
                 >
@@ -80,8 +84,8 @@ export default function Login() {
 export const getServerSideProps: GetServerSideProps = async context => {
   const session = await getCsrfToken(context)
   console.log('🚀 ~ file: login.tsx ~ line 82 ~ session', session)
-  const login = await api.post('/users',{
-    access_token: session
+  const login = await api.post('/users', {
+    access_token: session,
   })
   console.log('🚀 ~ file: login.tsx ~ line 86 ~ login', login.data)
   // if (session) {

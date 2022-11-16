@@ -1,9 +1,24 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
-import { getSession, signIn, signOut, useSession} from 'next-auth/react'
-
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { getSession, signIn, signOut, useSession } from 'next-auth/react'
+import { useGoogleApi } from 'react-gapi'
+import axios from 'axios'
+import Google from 'next-auth/providers/google'
+import {
+  CredentialResponse,
+  GoogleLogin,
+  useGoogleLogin,
+  useGoogleOneTapLogin,
+} from '@react-oauth/google'
+import { api } from '../lib/api'
 interface IAuthContext {
   user: IUser[]
-  signInWithGoogle: () => Promise<void>
+  SignInWithGoogle: () => Promise<void>
 }
 interface IAuthProvider {
   children: ReactNode
@@ -15,29 +30,43 @@ interface IUser {
   avatarUrl: string
 }
 
-export const AuthContext = createContext({} as IAuthContext);
+export const AuthContext = createContext({} as IAuthContext)
 
-export function AuthContextProvider({children}:IAuthProvider){
+export function AuthContextProvider({ children }: IAuthProvider) {
   const [user, setUser] = useState<IUser[]>([])
+  const [token, setToken] = useState()
+  const login =  useGoogleLogin({
+    onSuccess: codeResponse => {
+      return codeResponse
+    },
+    flow: 'implicit',
+    scope: 'profile',
+    
+  })
+  async function loginWithGoogle(){
+    try {
+      const res = await login()
+      console.log('RES =>', res)
+    } catch (error) {
+      
+    }
+    
 
-  async function signInWithGoogle(){
-    await signIn('google')
-    const session = await getSession()
-    console.log('🚀 ~ file: AuthContext.tsx ~ line 26 ~ signInWithGoogle ~ session', session)
-
-
-  }
-
+    console.log('TOKEN =>', token)
+  } 
+  console.log('token =>', token)
   return (
-    <AuthContext.Provider value={{
-      signInWithGoogle,
-      user
-    }}>
+    <AuthContext.Provider
+      value={{
+        loginWithGoogle,
+        user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
 }
 
-export function useAuth():IAuthContext{ 
+export function useAuth(): IAuthContext {
   return useContext(AuthContext)
 }

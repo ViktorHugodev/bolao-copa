@@ -94,6 +94,11 @@
   "resolved" "https://registry.npmjs.org/@panva/hkdf/-/hkdf-1.0.2.tgz"
   "version" "1.0.2"
 
+"@react-oauth/google@^0.5.0":
+  "integrity" "sha512-3bS+DmKjynzdn3dwdNFdiIybRTOhF2siVI+gjSZrsYI52oWKVqb8mkxsV3YbU/EnL/c5g9zBinGcbzTNUHq/eg=="
+  "resolved" "https://registry.npmjs.org/@react-oauth/google/-/google-0.5.0.tgz"
+  "version" "0.5.0"
+
 "@rushstack/eslint-patch@^1.1.3":
   "integrity" "sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg=="
   "resolved" "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz"
@@ -1725,7 +1730,7 @@
   "resolved" "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   "version" "5.1.1"
 
-"react-dom@^17.0.2 || ^18", "react-dom@^18.2.0", "react-dom@18.2.0":
+"react-dom@^17.0.2 || ^18", "react-dom@^18.2.0", "react-dom@>=16.8.0", "react-dom@18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -1733,12 +1738,26 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.23.0"
 
+"react-gapi@^1.0.2":
+  "integrity" "sha512-MGP7Rlbwz1X5/GvcDWpys+pLzKhnkeFW0ydTwGFihy7XqKz6Ojm5XzAT84QhgywgKg5JdvEd4Wxdgc1y4rWB7Q=="
+  "resolved" "https://registry.npmjs.org/react-gapi/-/react-gapi-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "react-weblibrary" "^1.0.1"
+
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@18.2.0":
+"react-weblibrary@^1.0.1":
+  "integrity" "sha512-0JSVH4jFLqxeVjkIBHtD+wO9h0IRxQa2kt4sFAu5L1K2j6rt4M2NKWZqt8tXcfPIBLE8DksN6MH4O2liKI/KoQ=="
+  "resolved" "https://registry.npmjs.org/react-weblibrary/-/react-weblibrary-1.0.4.tgz"
+  "version" "1.0.4"
+  dependencies:
+    "ts-essentials" "^9.1.2"
+
+"react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16.8", "react@>=16.8.0", "react@>=17", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -1988,6 +2007,11 @@
   dependencies:
     "is-number" "^7.0.0"
 
+"ts-essentials@^9.1.2":
+  "integrity" "sha512-XeiCboEyBG8UqXZtXl59bWEi4ZgOqRsogFDI6WDGIF1LmzbYiAkIwjkXN6zZWWl4re/lsOqMlYfe8KA0XiiEPw=="
+  "resolved" "https://registry.npmjs.org/ts-essentials/-/ts-essentials-9.3.0.tgz"
+  "version" "9.3.0"
+
 "tsconfig-paths@^3.14.1":
   "integrity" "sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ=="
   "resolved" "https://registry.npmjs.org/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz"
@@ -2027,7 +2051,7 @@
   "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-0.20.2.tgz"
   "version" "0.20.2"
 
-"typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.3.1", "typescript@4.8.4":
+"typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.3.1", "typescript@>=4.1.0", "typescript@4.8.4":
   "integrity" "sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz"
   "version" "4.8.4"
