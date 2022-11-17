@@ -5,20 +5,23 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { getSession, signIn, signOut, useSession } from 'next-auth/react'
-import { useGoogleApi } from 'react-gapi'
-import axios from 'axios'
-import Google from 'next-auth/providers/google'
 import {
-  CredentialResponse,
-  GoogleLogin,
-  useGoogleLogin,
-  useGoogleOneTapLogin,
-} from '@react-oauth/google'
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  signInWithCustomToken,
+  onAuthStateChanged,
+  signOut,
+ 
+  getAuth
+} from 'firebase/auth'
+import { auth } from '../lib/firebase'
 import { api } from '../lib/api'
+
+
+
 interface IAuthContext {
   user: IUser[]
-  SignInWithGoogle: () => Promise<void>
 }
 interface IAuthProvider {
   children: ReactNode
@@ -35,31 +38,35 @@ export const AuthContext = createContext({} as IAuthContext)
 export function AuthContextProvider({ children }: IAuthProvider) {
   const [user, setUser] = useState<IUser[]>([])
   const [token, setToken] = useState()
-  const login =  useGoogleLogin({
-    onSuccess: codeResponse => {
-      return codeResponse
-    },
-    flow: 'implicit',
-    scope: 'profile',
-    
-  })
-  async function loginWithGoogle(){
+  const [isLoading, setIsLoading] = useState(false)
+  async function signInGoogle(){
     try {
-      const res = await login()
-      console.log('RES =>', res)
+      
+      const provider = new GoogleAuthProvider()
+      const result = await signInWithPopup(auth, provider)
+      const accessResult = result.user
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      console.log('🚀 ~ file: AuthContext.tsx ~ line 49 ~ signInGoogle ~ credential', credential)
+
+      const token = await api.post('/users', {
+        access_token: credential?.accessToken
+      })
+      api.defaults.headers.common['Authorization'] = `Bearer ${token.data.token}`
+      const userInfoResponse = await api.get('/me')
+      console.log('🚀 ~ file: AuthContext.tsx ~ line 52 ~ signInGoogle ~ userInfoResponse', userInfoResponse.data)
+      setUser(userInfoResponse.data.user)
     } catch (error) {
+      console.log(' error', error)
       
     }
     
-
-    console.log('TOKEN =>', token)
-  } 
-  console.log('token =>', token)
+  }
+  console.log('USER =>', user)
   return (
     <AuthContext.Provider
       value={{
-        loginWithGoogle,
         user,
+        signInGoogle
       }}
     >
       {children}

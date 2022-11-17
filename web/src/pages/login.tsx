@@ -11,7 +11,7 @@ import { useAuth } from '../context/AuthContext'
 import { api } from '../lib/api'
 
 export default function Login() {
-  const { loginWithGoogle } = useAuth()
+  const { signInGoogle } = useAuth()
 
   return (
     <div className='relative py-16 bg-gradient-to-br from-sky-50 to-gray-200 h-screen'>
@@ -32,7 +32,7 @@ export default function Login() {
               </div>
               <div className='mt-16 grid space-y-4'>
                 <button
-                  onClick={loginWithGoogle}
+                  onClick={signInGoogle}
                   className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
                 >
