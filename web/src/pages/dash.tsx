@@ -8,10 +8,11 @@ import { GetServerSideProps } from 'next'
 import { FormEvent, useEffect, useState } from 'react'
 import { getSession } from 'next-auth/react'
 import { IUser, useAuth } from '../context/AuthContext'
-import { parseCookies } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
 import { SSRAuth } from '../authRoutes/SSRAuth'
 import { api } from '../lib/apiClient'
 import { setupAPIClient } from '../lib/api'
+import { AuthTokenError } from '../authRoutes/AuthTokenError'
 
 interface HomeProps {
   poolsCount: number
@@ -23,7 +24,7 @@ interface HomeProps {
 export default function Dash(props: HomeProps) {
   const [title, setTitle] = useState('')
 
-  console.log('porps user',props.user.name)
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -108,11 +109,11 @@ export default function Dash(props: HomeProps) {
   )
 }
 
-export const getServerSideProps = SSRAuth(async (context) => {
+export const getServerSideProps = SSRAuth(async context => {
   const apiClient = setupAPIClient(context)
   const user = await apiClient.get('/me')
-  console.log('🚀 ~ file: dash.tsx ~ line 114 ~ getServerSideProps ~ user', user)
 
+ 
   const [poolRequest, betsRequest, usersRequest] = await Promise.all([
     api('/pools/count'),
     api('/bets/count'),
@@ -124,7 +125,7 @@ export const getServerSideProps = SSRAuth(async (context) => {
       poolsCount: poolRequest.data.count,
       betsCount: betsRequest.data.count,
       usersCount: usersRequest.data.count,
-      user: user.data.user
+      // user: user?.data.user,
     },
   }
 })

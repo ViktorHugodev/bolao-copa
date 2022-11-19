@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import Router from 'next/router'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { AuthTokenError } from '../authRoutes/AuthTokenError'
 import { signOutAuth } from '../context/AuthContext'
 
 
@@ -26,13 +27,16 @@ export function setupAPIClient(context: GetServerSidePropsContext | undefined = 
         destroyCookie(context, 'bolaoToken')
         if(process.browser){
   
-          // signOutAuth()
+          signOutAuth()
+        } else {
+          return Promise.reject(new AuthTokenError())
         }
       } else {
-        destroyCookie(undefined, 'bolaoToken')
+        destroyCookie(context, 'bolaoToken')
         if(process.browser){
-  
-          // signOutAuth()
+          signOutAuth()
+        } else {
+          return Promise.reject(new AuthTokenError())
         }
       }
       return Promise.reject(error)
