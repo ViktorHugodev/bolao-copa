@@ -1,5 +1,6 @@
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import type { AppProps } from 'next/app'
+import { Header } from '../components/Header'
 import { AuthContextProvider } from '../context/AuthContext'
 import '../styles/global.css'
 export default function App({
@@ -10,6 +11,7 @@ export default function App({
 
   return (
     <AuthContextProvider>
+      <Header />
       <Component {...pageProps} />
     </AuthContextProvider>
   )
