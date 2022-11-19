@@ -1,0 +1,17 @@
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { parseCookies } from 'nookies'
+export function SSRGuest<P extends { [key: string]: any }>(fn: GetServerSideProps<P>){
+  return async (context:GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
+
+    const cookies = parseCookies(context)
+    if (cookies['bolaoToken']) {
+      return {
+        redirect: {
+          destination: '/dash',
+          permanent: false,
+        },
+      }
+    }
+    return await fn(context)
+  }
+}

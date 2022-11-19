@@ -4,22 +4,26 @@ import usersAvatarImg from '../assets/users-avatar-example.png'
 import logoImg from '../assets/logo.svg'
 import checkBoxImg from '../assets/icon-check.svg'
 import { GetServerSideProps } from 'next'
-import { api } from '../lib/api'
+
 import { FormEvent, useEffect, useState } from 'react'
 import { getSession } from 'next-auth/react'
-import { useAuth } from '../context/AuthContext'
+import { IUser, useAuth } from '../context/AuthContext'
+import { parseCookies } from 'nookies'
+import { SSRAuth } from '../authRoutes/SSRAuth'
+import { api } from '../lib/apiClient'
+import { setupAPIClient } from '../lib/api'
 
 interface HomeProps {
   poolsCount: number
   betsCount: number
   usersCount: number
+  user: IUser
 }
 
 export default function Dash(props: HomeProps) {
   const [title, setTitle] = useState('')
-  const { user } = useAuth()
 
-  
+  console.log('porps user',props.user.name)
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -37,11 +41,7 @@ export default function Dash(props: HomeProps) {
       alert('Erro, tente novamente mais tarde.')
     }
   }
-  useEffect(() =>{
-    api.get('/me')
-    .then(res => console.log('res', res))
-    .catch(error => console.log(error))
-  },[])
+
   return (
     <div className='max-w-6xl grid grid-cols-2 h-screen items-center mx-auto gap-28'>
       <main>
@@ -50,7 +50,7 @@ export default function Dash(props: HomeProps) {
         <h1 className='mt-15 text-white font-bold text-5xl leading-tight'>
           Crie seu próprio bolão da copa e compartilhe entre amigos!
         </h1>
-        <h2 className='text-white'>Olá {user?.name}</h2>
+        <h2 className='text-white'>Olá {props.user?.name}</h2>
         <div className='flex items-center mt-10 gap-2'>
           <Image src={usersAvatarImg} alt='Avatar de usuários' />
           <strong className='text-gray-100 text-lg'>
@@ -108,8 +108,10 @@ export default function Dash(props: HomeProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  // const session = await getSession(context)
+export const getServerSideProps = SSRAuth(async (context) => {
+  const apiClient = setupAPIClient(context)
+  const user = await apiClient.get('/me')
+  console.log('🚀 ~ file: dash.tsx ~ line 114 ~ getServerSideProps ~ user', user)
 
   const [poolRequest, betsRequest, usersRequest] = await Promise.all([
     api('/pools/count'),
@@ -122,6 +124,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       poolsCount: poolRequest.data.count,
       betsCount: betsRequest.data.count,
       usersCount: usersRequest.data.count,
+      user: user.data.user
     },
   }
-}
+})

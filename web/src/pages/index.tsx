@@ -4,9 +4,12 @@ import usersAvatarImg from '../assets/users-avatar-example.png'
 import logoImg from '../assets/logo.svg'
 import checkBoxImg from '../assets/icon-check.svg'
 import { GetServerSideProps } from 'next'
-import { api } from '../lib/api'
+
 import { FormEvent, useState } from 'react'
 import { getSession } from 'next-auth/react'
+import { parseCookies } from 'nookies'
+import { SSRGuest } from '../authRoutes/SSRGuest'
+import { api } from '../lib/apiClient'
 
 interface HomeProps {
   poolsCount: number
@@ -102,21 +105,21 @@ export default function Home(props: HomeProps) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const session = await getSession(context)
+export const getServerSideProps = SSRGuest(async (context) => {
 
-  const [poolRequest, betsRequest, usersRequest] = await Promise.all([
-    api('/pools/count'),
-    api('/bets/count'),
-    api('/users/count')
-  ])
+  // const [poolRequest, betsRequest, usersRequest] = await Promise.all([
+  //   api('/pools/count'),
+  //   api('/bets/count'),
+  //   api('/users/count')
+  // ])
   
 
   return {
     props: {
-      poolsCount: poolRequest.data.count,
-      betsCount: betsRequest.data.count,
-      usersCount: usersRequest.data.count
+      
+      // poolsCount: poolRequest.data.count,
+      // betsCount: betsRequest.data.count,
+      // usersCount: usersRequest.data.count
     }
   }
-}
+})

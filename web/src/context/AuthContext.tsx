@@ -15,18 +15,20 @@ import {
   getAuth,
 } from 'firebase/auth'
 import { auth } from '../lib/firebase'
-import { api } from '../lib/api'
+
 import Router from 'next/router'
+import { api } from '../lib/apiClient'
 
 interface IAuthContext {
-  user: IUser[]
+  user: IUser
   isAuthenticated: boolean
+  signInGoogle: () => void
 }
 interface IAuthProvider {
   children: ReactNode
 }
 
-interface IUser {
+export interface IUser {
   name: string
   email: string
   avatarUrl: string
@@ -39,7 +41,7 @@ export function signOutAuth(){
 }
 
 export function AuthContextProvider({ children }: IAuthProvider) {
-  const [user, setUser] = useState<IUser[]>([])
+  const [user, setUser] = useState<IUser>()
   const [token, setToken] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const isAuthenticated = !!user
@@ -53,7 +55,7 @@ export function AuthContextProvider({ children }: IAuthProvider) {
 
       }).catch(error => {
         console.log('🚀 ~ file: AuthContext.tsx ~ line 55 ~ api.get ~ error', error)
-        signOutAuth()
+        // signOutAuth()
       })
     }
   }, [])
