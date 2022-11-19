@@ -60,7 +60,7 @@ export async function authRoutes(fastify: FastifyInstance){
         email: user.email
       }, {
         sub:user.id,
-        expiresIn: '7 days'
+        expiresIn: 60
       })
   
       return { token}
@@ -70,5 +70,7 @@ export async function authRoutes(fastify: FastifyInstance){
    
   })
 
-
+  fastify.post('/refresh', async (request) => {
+    return {message: 'refresh'}
+  })
 }
