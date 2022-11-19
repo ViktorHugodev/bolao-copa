@@ -44,7 +44,7 @@ export default function Dash(props: HomeProps) {
   }
 
   return (
-    <div className='max-w-6xl grid grid-cols-2 h-screen items-center mx-auto gap-28'>
+    <div className='max-w-6xl grid grid-cols-2 h-screen items-center mx-auto gap-28 px-6'>
       <main>
         <Image src={logoImg} alt='Logo NLW' />
 
@@ -53,7 +53,7 @@ export default function Dash(props: HomeProps) {
         </h1>
         <h2 className='text-white'>Olá {props.user?.name}</h2>
         <div className='flex items-center mt-10 gap-2'>
-          <Image src={usersAvatarImg} alt='Avatar de usuários' />
+          {/* <Image src={usersAvatarImg} alt='Avatar de usuários' /> */}
           <strong className='text-gray-100 text-lg'>
             <span className='text-ignite-500'>+ {props.usersCount}</span>{' '}
             pessoas já estão usando

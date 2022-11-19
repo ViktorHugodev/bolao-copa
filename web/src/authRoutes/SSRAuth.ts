@@ -13,7 +13,7 @@ export function SSRAuth<P>(fn: GetServerSideProps<P>) {
     if (!cookies['bolaoToken']) {
       return {
         redirect: {
-          destination: '/login',
+          destination: '/',
           permanent: false,
         },
       }
@@ -25,7 +25,7 @@ export function SSRAuth<P>(fn: GetServerSideProps<P>) {
         destroyCookie(context, 'bolaoToken')
         return {
           redirect: {
-            destination: '/login',
+            destination: '/',
             permanent: false,
           },
         }
