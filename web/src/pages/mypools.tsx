@@ -12,18 +12,20 @@ export default function MyPools({ pools }: IPoolsPage) {
   return (
     <div className='mx-auto w-full flex flex-col items-center mt-10'>
       <div className='flex'>
-      <input
-        required
-        className='bg-gray-800 px-6 py-4 flex-1 rounded text-sm border border-gray-600 text-gray-100'
-        type='text'
-        placeholder='Digite o código do bolão'
-        // onChange={event => setTitle(event.target.value)}
-        // value={title}
-      />
+        <input
+          required
+          className='bg-gray-800 px-6 py-4 flex-1 rounded text-sm border border-gray-600 text-gray-100'
+          type='text'
+          placeholder='Digite o código do bolão'
+          // onChange={event => setTitle(event.target.value)}
+          // value={title}
+        />
 
-      <Button title='Buscar bolão por código'/>
+        <Button title='Buscar bolão por código' />
       </div>
-      <PoolCard />
+      {pools.map(pool => {
+        return <PoolCard key={pool.id} data={pool} />
+      })}
     </div>
   )
 }
@@ -37,7 +39,7 @@ export const getServerSideProps = SSRAuth(async context => {
 
   return {
     props: {
-      pools: pools.data,
+      pools: pools.data.pools,
       // user: user?.data.user,
     },
   }

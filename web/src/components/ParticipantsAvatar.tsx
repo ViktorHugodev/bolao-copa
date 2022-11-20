@@ -1,22 +1,23 @@
-export function ParticipantsAvatar() {
+export function ParticipantsAvatar({participants}) {
+  console.log('part', participants)
   return (
     <div className='flex items-center'>
       <img
         className='w-8 rounded-full'
-        src='https://lh3.googleusercontent.com/a/ALm5wu32oqVbGzHWS-DW30DgPuJGCdMEmwWDn0qAkrsH=s96-c'
+        src={participants[0]?.user.avatarUrl}
         alt=''
       />
       <img
         className='w-8 rounded-full'
-        src='https://lh3.googleusercontent.com/a/ALm5wu32oqVbGzHWS-DW30DgPuJGCdMEmwWDn0qAkrsH=s96-c'
+        src={participants[1]?.user.avatarUrl}
         alt=''
       />
       <img
         className='w-8 rounded-full'
-        src='https://lh3.googleusercontent.com/a/ALm5wu32oqVbGzHWS-DW30DgPuJGCdMEmwWDn0qAkrsH=s96-c'
+        src={participants[2]?.user.avatarUrl}
         alt=''
       />
-      <div className='w-8 rounded-full bg-gray-200'>+14</div>
+      <div className='w-8 rounded-full flex items-center justify-center py-1 px-1 bg-gray-200'>+{participants.length}</div>
     </div>
   )
 }
