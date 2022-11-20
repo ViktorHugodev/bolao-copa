@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+
 import { ParticipantsAvatar } from './ParticipantsAvatar'
 
 export function PoolCard({ data }: any) {
-  const router = useRouter()
-  console.log(router)
+
   return (
     <Link href={`pool/${data.id}`}>
       <div className='mt-10 rounded-md w-[400px] mx-auto border border-gray-600 hover:border-2 hover:border-gray-300 cursor-pointer'>

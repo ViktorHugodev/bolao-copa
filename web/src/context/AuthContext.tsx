@@ -94,7 +94,7 @@ export function AuthContextProvider({ children }: IAuthProvider) {
       console.log(' error', error)
     }
   }
-  console.log('USER =>', user)
+
   return (
     <AuthContext.Provider
       value={{
