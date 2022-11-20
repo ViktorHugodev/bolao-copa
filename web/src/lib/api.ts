@@ -32,12 +32,7 @@ export function setupAPIClient(context: GetServerSidePropsContext | undefined = 
           return Promise.reject(new AuthTokenError())
         }
       } else {
-        destroyCookie(context, 'bolaoToken')
-        if(process.browser){
-          signOutAuth()
-        } else {
-          return Promise.reject(new AuthTokenError())
-        }
+       
       }
       return Promise.reject(error)
     }
