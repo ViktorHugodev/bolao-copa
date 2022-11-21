@@ -26,7 +26,7 @@ type PoolProps = {
 }
 
 export default function Pool({ poolsDetails }: PoolProps) {
-  console.log('poolsDetails', poolsDetails)
+
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState()
   const { query } = useRouter()

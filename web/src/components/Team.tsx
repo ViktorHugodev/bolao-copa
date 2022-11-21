@@ -4,12 +4,24 @@ interface ITeam {
   code: string
   position: 'left' | 'right'
   onChangeText: (value: string) => void
+  setFirstTeamPoints?: (value: string) => void;
+  setSecondTeamPoints?: (value: string) => void;
+  value: string
+  
 }
 
-export function Team({ code, position }: ITeam) {
+export function Team({ code, position,setFirstTeamPoints,setSecondTeamPoints, value }: ITeam) {
+
   return (
     <div className='flex gap-2 items-center '>
+
+
       {position === 'left' && (
+        <>
+         <InputCustom 
+          value={value}
+         onChangeText={setFirstTeamPoints}
+         />
         <ReactCountryFlag
           countryCode={code}
           svg
@@ -19,10 +31,13 @@ export function Team({ code, position }: ITeam) {
           }}
           title='US'
         />
+        </>
+       
       )}
 
-      <InputCustom />
+
       {position === 'right' && (
+        <>
         <ReactCountryFlag
           countryCode={code}
           svg
@@ -32,6 +47,11 @@ export function Team({ code, position }: ITeam) {
           }}
           title='US'
         />
+         <InputCustom 
+             value={value}
+         onChangeText={setSecondTeamPoints}
+         />
+        </>
       )}
     </div>
   )

@@ -47,7 +47,7 @@ export function AuthContextProvider({ children }: IAuthProvider) {
   const isAuthenticated = !!user
 
   useEffect(() => {
-    const { bolaoToken: token } = parseCookies()
+    const { 'bolaoToken': token } = parseCookies()
     if (token) {
       api.get('/me').then(response => {
         setUser(response.data.user)

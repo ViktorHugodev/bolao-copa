@@ -12,8 +12,7 @@ interface IGameCard {
 export function GameCard({ poolId }: IGameCard) {
   const [isLoading, setIsLoading] = useState(false)
   const [games, setGames] = useState()
-  const [firstTeamGoals, setFirstTeamGoals] = useState('')
-  const [secondTeamGoals, setSecondTeamGoals] = useState('')
+
   async function getFetchGames() {
     try {
       setIsLoading(true)
