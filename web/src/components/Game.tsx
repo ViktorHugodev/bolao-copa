@@ -4,14 +4,16 @@ import { getName } from 'country-list'
 import dayjs from 'dayjs'
 import ptBR from 'dayjs/locale/pt-br'
 import { Check } from 'phosphor-react'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
+import { api } from '../lib/apiClient'
+import { toast,ToastContainer } from 'react-toastify'
 interface GuessProps {
   id: string
   gameId: string
   createdAt: string
   participantId: string
-  firstTeamPoints: number
-  secondTeamPoints: number
+  firstTeamGoals: number
+  secondTeamGoals: number
 }
 
 export interface GameProps {
@@ -24,18 +26,57 @@ export interface GameProps {
 
 interface Props {
   game: GameProps
-  // onGuessConfirm: () => void
+  poolId: string
+  refectGames: () => void
 }
 
-export function Game({ game }: Props) {
-  console.log('GAME DTA=>', game)
-  const [firsTeamGoals, setFirstTeamGoals] = useState('')
-  const [secondTeamGoals, setSecondTeamGoals] = useState('')
+export function Game({ game, poolId,refectGames }: Props) {
+  console.log('🚀 ~ file: Game.tsx ~ line 31 ~ Game ~ game', game)
+  console.log('poolid', poolId)
+  const [firsTeamGoals, setFirstTeamGoals] = useState()
+  const [secondTeamGoals, setSecondTeamGoals] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   const formattedDate = dayjs(game.date)
     .locale(ptBR)
     .format('DD [de] MMMM [de] YYYY [ás] HH:00[h]')
-  console.log(`fisrt ${game.id}`,firsTeamGoals)
-  console.log(`second ${game.id}`,secondTeamGoals)
+
+  // console.log(`fisrt ${game.id}`,firsTeamGoals)
+  // console.log(`second ${game.id}`,secondTeamGoals)
+  async function handleConfirmGuess(event: FormEvent) {
+    event.preventDefault()
+    try {
+      setIsLoading(true)
+      if (!firsTeamGoals.trim() || !secondTeamGoals.trim()) {
+        return toast('Por favor preencha os palpites do jogo', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          type: 'error',
+          theme: 'dark',
+        })
+      }
+      await api.post(`/pools/${poolId}/games/${game.id}`, {
+        firstTeamGoals: Number(firsTeamGoals),
+        secondTeamGoals: Number(secondTeamGoals),
+      })
+      toast('Palpite enviado com sucesso ', {
+        position: 'bottom-center',
+        autoClose: 5000,
+        type: 'success',
+        theme: 'dark',
+      })
+      return refectGames()
+    } catch (error) {
+      console.log('ERROR => ln38', error)
+      return toast('Não foi possível realizer esse palpite ', {
+        position: 'bottom-center',
+        autoClose: 5000,
+        type: 'error',
+        theme: 'dark',
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
   return (
     <>
       <div className='mt-10 p-4 rounded-md w-[400px] mx-auto border border-gray-600'>
@@ -48,27 +89,37 @@ export function Game({ game }: Props) {
           {' '}
           {formattedDate}
         </span>
-        <div className='flex justify-center items-center'>
-          <Team 
-          position='left' 
-          code={game.firstTeamCountryCode} 
-          value={firsTeamGoals}
-          setFirstTeamPoints={setFirstTeamGoals}
-          />
-          <GrClose size={32} className='mx-2' />
-          <Team 
-          value={secondTeamGoals}
-          setSecondTeamPoints={setSecondTeamGoals}
-          position='right' 
-          code={game.secondTeamCountryCode}
-           />
-        </div>
-        <button className='bg-green-600 w-full flex gap-2 justify-center items-center rounded-md mt-4 hover:bg-green-700 text-white font-bold uppercase text-sm'>
-          <Check size={32} />
-          Confirmar palpite
-        </button>
+        <form onSubmit={handleConfirmGuess}>
+          <div className='flex justify-center items-center'>
+            <Team
+              position='left'
+              code={game.firstTeamCountryCode}
+              value={game.bet ? String(game.bet.firstTeamGoals) : firsTeamGoals}
+              setFirstTeamPoints={setFirstTeamGoals}
+            />
+            <GrClose size={32} className='mx-2' />
+            <Team
+                 value={game.bet ? String(game.bet.secondTeamGoals) : secondTeamGoals}
+              setSecondTeamPoints={setSecondTeamGoals}
+              position='right'
+              code={game.secondTeamCountryCode}
+            />
+          </div>
+
+          {!game.bet && (
+            <button
+              type='submit'
+              className='bg-green-600 w-full flex gap-2 justify-center items-center rounded-md mt-4 hover:bg-green-700 text-white font-bold uppercase text-sm'
+            >
+              <Check size={32} />
+              Confirmar palpite
+            </button>
+          )}
+        </form>
       </div>
-      <div className='h-1 w-full bg-yellow-500'></div>
+      <div className='h-1 w-full bg-yellow-500'>
+      <ToastContainer />
+      </div>
     </>
   )
 }

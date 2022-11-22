@@ -35,9 +35,9 @@ export interface IUser {
 }
 
 export const AuthContext = createContext({} as IAuthContext)
-export function signOutAuth(){
+export function signOutAuth() {
   destroyCookie(undefined, 'bolaoToken')
-  Router.push('/login')
+  Router.push('/')
 }
 
 export function AuthContextProvider({ children }: IAuthProvider) {
@@ -47,16 +47,25 @@ export function AuthContextProvider({ children }: IAuthProvider) {
   const isAuthenticated = !!user
 
   useEffect(() => {
-    const { 'bolaoToken': token } = parseCookies()
+    const { bolaoToken: token } = parseCookies()
     if (token) {
-      api.get('/me').then(response => {
-        setUser(response.data.user)
-       
-
-      }).catch(error => {
-        console.log('🚀 ~ file: AuthContext.tsx ~ line 55 ~ api.get ~ error', error)
-        // signOutAuth()
-      })
+      api
+        .get('/me')
+        .then(response => {
+          setUser({
+            ...response.data.user,
+            shortName:
+              response.data.user.name.split(' ')[0] + ' ' +
+              response.data.user.name.split(' ')[1],
+          })
+        })
+        .catch(error => {
+          console.log(
+            '🚀 ~ file: AuthContext.tsx ~ line 55 ~ api.get ~ error',
+            error
+          )
+          // signOutAuth()
+        })
     }
   }, [])
   async function signInGoogle() {
@@ -88,13 +97,19 @@ export function AuthContextProvider({ children }: IAuthProvider) {
       //   maxAge: 60 * 60 * 24 * 30,
       //   path:'/'
       // })
-      setUser(userInfoResponse.data.user)
+      console.log('LOG => ', userInfoResponse.data.user)
+      setUser({
+        ...userInfoResponse.data.user,
+        shortName:
+          userInfoResponse.data.user.name.split(' ')[0] + ' '+
+          userInfoResponse.data.user.name.split(' ')[1],
+      })
       Router.push('/dash')
     } catch (error) {
       console.log(' error', error)
     }
   }
-
+  console.log('USER =>', user)
   return (
     <AuthContext.Provider
       value={{

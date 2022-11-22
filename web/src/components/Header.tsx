@@ -11,7 +11,7 @@ export function Header() {
       <div className='flex gap-4'>
         {/* <h2 className='text-gray-100'>Bolão da Copa</h2> */}
         <Image src={logoImg} alt='' className='w-16 h-18' />
-        <nav className='flex gap-4 items-center'>
+        {!!user &&  <nav className='flex gap-4 items-center'>
           <Link
             href='/mypools'
             className='text-yellow-500 hover:text-yellow-600'
@@ -24,7 +24,8 @@ export function Header() {
           >
             Encontrar bolão
           </Link>
-        </nav>
+        </nav>}
+       
       </div>
 
       <div>{user ? <AvatarDropDown user={user} /> : <GoogleButton />}</div>

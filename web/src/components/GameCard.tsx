@@ -36,7 +36,9 @@ export function GameCard({ poolId }: IGameCard) {
   return (
     <div>
       {games?.map(game => (
-        <Game key={game.id} game={game}/>
+        <Game 
+        refectGames={getFetchGames}
+        key={game.id} game={game} poolId={poolId}/>
       ))}
     </div>
   )

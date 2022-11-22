@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { IUser } from '../context/AuthContext'
-
+import { IUser, signOutAuth, useAuth } from '../context/AuthContext'
+import Image from 'next/image'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -11,7 +11,7 @@ interface IAvatarDropDown {
 }
 
 export function AvatarDropDown({ user }: IAvatarDropDown) {
-
+  console.log('user', user)
   return (
     <Menu as='div' className='relative inline-block text-left rounded-full'>
       <div>
@@ -22,7 +22,11 @@ export function AvatarDropDown({ user }: IAvatarDropDown) {
         items-center
         justify-center rounded-full bg-transparent text-sm font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-black'
         >
-          <img className='w-12 rounded-full' src={user.avatarUrl} alt='' />
+          <Image 
+          width={32}
+          height={32}
+          className='mr-2 rounded-full' 
+          src={user?.avatarUrl} alt='' />
           <ChevronDownIcon className='-mr-6' aria-hidden='true' />
           <strong className='whitespace-nowrap text-gray-100'>
             {user?.name}
@@ -72,7 +76,7 @@ export function AvatarDropDown({ user }: IAvatarDropDown) {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    type='submit'
+                    onClick={signOutAuth}
                     className={classNames(
                       active ? 'bg-gray-800 text-gray-100' : 'text-gray-200',
                       'block w-full px-4 py-2 text-left text-sm'
