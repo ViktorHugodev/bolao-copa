@@ -1,5 +1,6 @@
 interface IButton {
   title: string
+  handleJoinPool: () => void
 }
 
 export function Button({ title, handleJoinPool }: IButton) {

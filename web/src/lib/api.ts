@@ -11,7 +11,7 @@ import { signOutAuth } from '../context/AuthContext'
 export function setupAPIClient(context: GetServerSidePropsContext | undefined = undefined)  {
   let cookies = parseCookies(context)
   const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: 'http://ec2-54-207-233-8.sa-east-1.compute.amazonaws.com:3333',
     headers: {
       Authorization: `Bearer ${cookies['bolaoToken']}`,
     },
