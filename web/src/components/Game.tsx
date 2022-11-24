@@ -31,8 +31,7 @@ interface Props {
 }
 
 export function Game({ game, poolId,refectGames }: Props) {
-  console.log('🚀 ~ file: Game.tsx ~ line 31 ~ Game ~ game', game)
-  console.log('poolid', poolId)
+
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)

@@ -27,7 +27,7 @@
       ]
     },
     {
-      "source": "/:path*",
+      "source": "/*",
       "has": [
         {
           "type": "query",

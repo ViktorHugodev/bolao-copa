@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import { SSRAuth } from '../authRoutes/SSRAuth'
-import { setupAPIClient } from '../lib/api'
 import { api } from '../lib/apiClient'
 import { Game } from './Game'
 
@@ -39,7 +37,7 @@ export function GameCard({ poolId }: IGameCard) {
   }, [poolId])
   return (
     <div>
-      {games?.map(game => (
+      {games?.map((game: any) => (
         <Game 
         refectGames={getFetchGames}
         key={game.id} game={game} poolId={poolId}/>

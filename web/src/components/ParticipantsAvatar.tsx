@@ -1,5 +1,5 @@
 export function ParticipantsAvatar({participants}) {
-  console.log('part', participants)
+
   return (
     <div className='flex items-center'>
       <img

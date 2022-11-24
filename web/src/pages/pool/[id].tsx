@@ -1,3 +1,4 @@
+import { GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { SSRAuth } from '../../authRoutes/SSRAuth'
@@ -67,6 +68,7 @@ export default function Pool({ poolsDetails }: PoolProps) {
     </>
   )
 }
+
 export const getServerSideProps = SSRAuth(async context => {
   const { id } = context.query
   const apiClient = setupAPIClient(context)

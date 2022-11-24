@@ -2,7 +2,7 @@
 import axios, { AxiosError } from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import Router from 'next/router'
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { parseCookies, destroyCookie } from 'nookies'
 import { AuthTokenError } from '../authRoutes/AuthTokenError'
 import { signOutAuth } from '../context/AuthContext'
 

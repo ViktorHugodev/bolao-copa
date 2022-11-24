@@ -38,7 +38,6 @@ export default function Home(props: HomeProps) {
 
   return (
     <>
-  
       <div className='max-w-6xl grid grid-cols-2 h-screen items-center mx-auto gap-28'>
         <main>
           {/* <Image src={logoImg} alt='Logo NLW' /> */}
@@ -94,7 +93,10 @@ export const getServerSideProps = SSRGuest(async context => {
     api('/bets/count'),
     api('/users/count'),
   ])
-
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
   return {
     props: {
       poolsCount: poolRequest.data.count,

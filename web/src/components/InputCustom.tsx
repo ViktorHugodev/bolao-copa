@@ -18,7 +18,7 @@ export function InputCustom({
   position,
   onChangeText,
 }: IInputCustom) {
-  console.log('value', value)
+
 
   return (
     <div>

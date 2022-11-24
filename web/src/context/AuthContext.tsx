@@ -9,10 +9,6 @@ import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import {
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  signInWithCustomToken,
-  onAuthStateChanged,
-  getAuth,
 } from 'firebase/auth'
 import { auth } from '../lib/firebase'
 
@@ -32,6 +28,7 @@ export interface IUser {
   name: string
   email: string
   avatarUrl: string
+  shortName: string
 }
 
 export const AuthContext = createContext({} as IAuthContext)
@@ -90,7 +87,7 @@ export function AuthContextProvider({ children }: IAuthProvider) {
       api.defaults.headers['Authorization'] = `Bearer ${token}`
       const userInfoResponse = await api.get('/me')
       setCookie(undefined, 'bolaoToken', token, {
-        maxAge: 60 * 60 * 24 * 30,
+        maxAge: 60 * 60 * 24 * 15,
         path: '/',
       })
       // setCookie(undefined, 'refreshTokenBolao', token, {
