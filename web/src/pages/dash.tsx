@@ -1,18 +1,13 @@
 import Image from 'next/image'
+import { FormEvent, useState } from 'react'
 import previewMobileImg from '../assets/app-nlw-copa-preview.png'
-import usersAvatarImg from '../assets/users-avatar-example.png'
-import logoImg from '../assets/logo.svg'
 import checkBoxImg from '../assets/icon-check.svg'
-import { GetServerSideProps } from 'next'
+import logoImg from '../assets/logo.svg'
 
-import { FormEvent, useEffect, useState } from 'react'
-import { getSession } from 'next-auth/react'
-import { IUser, useAuth } from '../context/AuthContext'
-import { destroyCookie, parseCookies } from 'nookies'
 import { SSRAuth } from '../authRoutes/SSRAuth'
-import { api } from '../lib/apiClient'
+import { IUser } from '../context/AuthContext'
 import { setupAPIClient } from '../lib/api'
-import { AuthTokenError } from '../authRoutes/AuthTokenError'
+import { api } from '../lib/apiClient'
 
 interface HomeProps {
   poolsCount: number

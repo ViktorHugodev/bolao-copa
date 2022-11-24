@@ -5,7 +5,7 @@ import { api } from '../lib/apiClient'
 import { Game } from './Game'
 
 interface IGameCard {
-  poolId: string
+  poolId: any
   code?: string
 }
 interface IGame {

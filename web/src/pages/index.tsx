@@ -1,17 +1,13 @@
 import Image from 'next/image'
 import previewMobileImg from '../assets/app-nlw-copa-preview.png'
-import usersAvatarImg from '../assets/users-avatar-example.png'
 
 import checkBoxImg from '../assets/icon-check.svg'
-import { GetServerSideProps } from 'next'
 
 import { FormEvent, useState } from 'react'
-import { getSession } from 'next-auth/react'
-import { parseCookies } from 'nookies'
+
 import { SSRGuest } from '../authRoutes/SSRGuest'
-import { api } from '../lib/apiClient'
 import { GoogleButton } from '../components/GoogleButton'
-import { Header } from '../components/Header'
+import { api } from '../lib/apiClient'
 
 interface HomeProps {
   poolsCount: number
