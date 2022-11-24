@@ -8,10 +8,14 @@ interface IGameCard {
   poolId: string
   code?: string
 }
+interface IGame {
+  game: any
+}
+
 
 export function GameCard({ poolId }: IGameCard) {
   const [isLoading, setIsLoading] = useState(false)
-  const [games, setGames] = useState()
+  const [games, setGames] = useState<any>()
 
   async function getFetchGames() {
     try {
