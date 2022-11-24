@@ -11,7 +11,7 @@ interface IAvatarDropDown {
 }
 
 export function AvatarDropDown({ user }: IAvatarDropDown) {
-  console.log('user', user)
+
   return (
     <Menu as='div' className='relative inline-block text-left rounded-full'>
       <div>
