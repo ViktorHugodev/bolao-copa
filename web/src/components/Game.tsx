@@ -33,8 +33,8 @@ interface Props {
 export function Game({ game, poolId,refectGames }: Props) {
   console.log('🚀 ~ file: Game.tsx ~ line 31 ~ Game ~ game', game)
   console.log('poolid', poolId)
-  const [firsTeamGoals, setFirstTeamGoals] = useState()
-  const [secondTeamGoals, setSecondTeamGoals] = useState()
+  const [firsTeamGoals, setFirstTeamGoals] = useState('')
+  const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const formattedDate = dayjs(game.date)
     .locale(ptBR)
@@ -99,7 +99,7 @@ export function Game({ game, poolId,refectGames }: Props) {
             />
             <GrClose size={32} className='mx-2' />
             <Team
-                 value={game.bet ? String(game.bet.secondTeamGoals) : secondTeamGoals}
+              value={game.bet ? String(game.bet.secondTeamGoals) : secondTeamGoals}
               setSecondTeamPoints={setSecondTeamGoals}
               position='right'
               code={game.secondTeamCountryCode}

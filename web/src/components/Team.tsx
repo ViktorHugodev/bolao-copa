@@ -3,7 +3,7 @@ import ReactCountryFlag from 'react-country-flag'
 interface ITeam {
   code: string
   position: 'left' | 'right'
-  onChangeText: (value: string) => void
+  onChangeText?: (value: string) => void
   setFirstTeamPoints?: (value: string) => void
   setSecondTeamPoints?: (value: string) => void
   value: string
