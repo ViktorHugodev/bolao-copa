@@ -17,7 +17,7 @@ interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const [title, setTitle] = useState('')
-  console.log('title', title)
+  console.log('title', props)
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -93,10 +93,10 @@ export const getServerSideProps = SSRGuest(async context => {
     api('/bets/count'),
     api('/users/count'),
   ])
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  // context.res.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=10, stale-while-revalidate=59'
+  // )
   return {
     props: {
       poolsCount: poolRequest.data.count,
