@@ -106,14 +106,12 @@ export default function Dash(props: HomeProps) {
 
 export const getServerSideProps = SSRAuth(async context => {
   const apiClient = setupAPIClient(context)
-  const user = await apiClient.get('/me')
-
- 
   const [poolRequest, betsRequest, usersRequest] = await Promise.all([
-    api('/pools/count'),
-    api('/bets/count'),
-    api('/users/count'),
+    apiClient.get('/pools/count'),
+    apiClient.get('/bets/count'),
+    apiClient.get('/users/count'),
   ])
+
 
   return {
     props: {

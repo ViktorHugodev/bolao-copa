@@ -2,12 +2,12 @@ import Image from 'next/image'
 import previewMobileImg from '../assets/app-nlw-copa-preview.png'
 
 import checkBoxImg from '../assets/icon-check.svg'
-
+import { api} from '../lib/apiClient'
 import { FormEvent, useState } from 'react'
 
 import { SSRGuest } from '../authRoutes/SSRGuest'
 import { GoogleButton } from '../components/GoogleButton'
-import { api } from '../lib/apiClient'
+
 
 interface HomeProps {
   poolsCount: number
@@ -88,15 +88,13 @@ export default function Home(props: HomeProps) {
 }
 
 export const getServerSideProps = SSRGuest(async context => {
+ 
   const [poolRequest, betsRequest, usersRequest] = await Promise.all([
     api('/pools/count'),
     api('/bets/count'),
     api('/users/count'),
   ])
-  // context.res.setHeader(
-  //   'Cache-Control',
-  //   'public, s-maxage=10, stale-while-revalidate=59'
-  // )
+
   return {
     props: {
       poolsCount: poolRequest.data.count,

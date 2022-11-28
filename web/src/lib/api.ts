@@ -11,8 +11,8 @@ import { signOutAuth } from '../context/AuthContext'
 export function setupAPIClient(context: GetServerSidePropsContext | undefined = undefined)  {
   let cookies = parseCookies(context)
   const api = axios.create({
-    // baseURL: 'http://54.207.233.8:3333',
-    baseURL: 'http://54.207.233.8:3333',
+    baseURL: 'http://44.207.6.166:3333',
+    // baseURL: 'http://localhost:3333',
     headers: {
       Authorization: `Bearer ${cookies['bolaoToken']}`,
     },
@@ -23,7 +23,7 @@ export function setupAPIClient(context: GetServerSidePropsContext | undefined = 
       return response
     },
     (error: AxiosError) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         console.log('CAIU AQUI')
         destroyCookie(context, 'bolaoToken')
         if(process.browser){
