@@ -11,7 +11,7 @@ import { signOutAuth } from '../context/AuthContext'
 export function setupAPIClient(context: GetServerSidePropsContext | undefined = undefined)  {
   let cookies = parseCookies(context)
   const api = axios.create({
-    baseURL: 'http://44.207.6.166:3333',
+    baseURL: 'https://api-world-cup-guesses.herokuapp.com',
     // baseURL: 'http://localhost:3333',
     headers: {
       Authorization: `Bearer ${cookies['bolaoToken']}`,
