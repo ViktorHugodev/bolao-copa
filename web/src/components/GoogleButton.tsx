@@ -1,13 +1,17 @@
 import { GoogleLogin } from '@react-oauth/google'
 import { useAuth } from '../context/AuthContext'
+interface IGoogleButton {
+  size?: string
+}
 
-export function GoogleButton() {
+export function GoogleButton({size ='10'}:IGoogleButton) {
   const {signInGoogle, user} = useAuth()
+  
   return (
     <button
       onClick={signInGoogle}
-      className='group  bg-white h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
-hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
+      className={`group  bg-white h-${size} px-6 border-2 border-gray-300 rounded-full transition duration-300 
+      hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100`}
     >
       <div className='relative flex items-center space-x-4 justify-center'>
         <img
