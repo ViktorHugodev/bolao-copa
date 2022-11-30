@@ -67,16 +67,16 @@ export default function MyPools({ pools }: IPoolsPage) {
       }
 
       toast('Erro, tente novamente mais tarde.', {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 5000,
-        type:'error',
-        theme:'dark'
-        });
+        type: 'error',
+        theme: 'dark',
+      })
     }
   }
   return (
     <div className='mx-auto w-full flex flex-col items-center mt-10'>
-      <div className='flex'>
+      <div className='flex max-sm:flex-col max-sm:gap-2'>
         <input
           required
           className='bg-gray-800 px-6 py-4 flex-1 rounded text-sm border border-gray-600 text-gray-100'
@@ -91,9 +91,12 @@ export default function MyPools({ pools }: IPoolsPage) {
           handleJoinPool={handleJoinPool}
         />
       </div>
-      {pools.map(pool => {
-        return <PoolCard key={pool.id} data={pool} />
-      })}
+      <div className='flex flex-col'>
+        {pools.map(pool => {
+          return <PoolCard key={pool.id} data={pool} />
+        })}
+      </div>
+
       <ToastContainer />
     </div>
   )
