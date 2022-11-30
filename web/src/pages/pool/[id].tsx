@@ -19,6 +19,9 @@ interface IPool {
       avatarUrl: string
     }
   }
+  _count: {
+    participants: number
+  }
   title: string
 }
 
@@ -27,7 +30,7 @@ type PoolProps = {
 }
 
 export default function Pool({ poolsDetails }: PoolProps) {
-
+  console.log('poolsDetails',poolsDetails)
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState()
   const { query } = useRouter()
@@ -48,7 +51,7 @@ export default function Pool({ poolsDetails }: PoolProps) {
   }
   useEffect(() => {
     getDataPoolDetails()
-  }, [query.id])
+  }, [query.id, poolsDetails._count])
   return (
     <>
       <div className='mx-auto w-[600px] flex px-10 justify-center items-center bg-gray-900 rounded-md'>

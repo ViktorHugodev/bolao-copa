@@ -29,7 +29,7 @@ export function AvatarDropDown({ user }: IAvatarDropDown) {
           src={user?.avatarUrl} alt='' />
           <ChevronDownIcon className='-mr-6' aria-hidden='true' />
           <strong className='whitespace-nowrap text-gray-100'>
-            {user?.name}
+            {user?.shortName}
           </strong>
         </Menu.Button>
       </div>
