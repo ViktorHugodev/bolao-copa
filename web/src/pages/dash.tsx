@@ -41,7 +41,6 @@ export default function Dash(props: HomeProps) {
   return (
     <div className='max-w-6xl grid grid-cols-2 h-screen items-center mx-auto gap-28 px-6'>
       <main>
-        <Image src={logoImg} alt='Logo NLW' />
 
         <h1 className='mt-15 text-white font-bold text-5xl leading-tight'>
           Crie seu próprio bolão da copa e compartilhe entre amigos!

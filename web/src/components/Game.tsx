@@ -35,12 +35,11 @@ export function Game({ game, poolId,refectGames }: Props) {
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const formattedDate = dayjs(game.date)
+  const formattedDate = dayjs(game.date).add(3, 'hours')
     .locale(ptBR)
     .format('DD [de] MMMM [de] YYYY [ás] HH:00[h]')
 
-  // console.log(`fisrt ${game.id}`,firsTeamGoals)
-  // console.log(`second ${game.id}`,secondTeamGoals)
+  console.log('GAME =>', )
   async function handleConfirmGuess(event: FormEvent) {
     event.preventDefault()
     try {

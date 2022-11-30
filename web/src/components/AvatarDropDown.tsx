@@ -25,7 +25,7 @@ export function AvatarDropDown({ user }: IAvatarDropDown) {
           <Image 
           width={32}
           height={32}
-          className='mr-2 rounded-full' 
+          className='rounded-full' 
           src={user?.avatarUrl} alt='' />
           <ChevronDownIcon className='-mr-6' aria-hidden='true' />
           <strong className='whitespace-nowrap text-gray-100'>

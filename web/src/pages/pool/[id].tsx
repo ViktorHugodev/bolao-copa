@@ -54,10 +54,10 @@ export default function Pool({ poolsDetails }: PoolProps) {
   }, [query.id, poolsDetails._count])
   return (
     <>
-      <div className='mx-auto w-[600px] flex px-10 justify-center items-center bg-gray-900 rounded-md'>
+      <div className='mx-auto w-[600px] mt-5 h-16 flex px-10 justify-center items-center bg-gray-900 rounded-md'>
         <div>
           <h2 className='text-gray-100'>{poolsDetails.title}</h2>
-          <strong className='text-gray-400'>Código {poolsDetails.code}</strong>
+          <strong className='text-gray-400 text-sm font-normal'>Código {poolsDetails.code}</strong>
         </div>
         <div className='ml-auto'>
 

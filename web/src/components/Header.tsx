@@ -7,10 +7,13 @@ import Image from 'next/image'
 export function Header() {
   const { user } = useAuth()
   return (
-    <div className='bg-gray-600 w-full h-16 flex justify-between p-4 items-center'>
+    <div className='bg-gray-600 w-full h-16 px-8 flex justify-between items-center'>
       <div className='flex gap-4'>
         {/* <h2 className='text-gray-100'>Bolão da Copa</h2> */}
+        <Link href={'/'}>
         <Image src={logoImg} alt='' className='w-16 h-18' />
+        </Link>
+       
         {!!user &&  <nav className='flex gap-4 items-center'>
           <Link
             href='/mypools'
