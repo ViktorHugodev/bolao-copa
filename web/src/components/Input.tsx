@@ -10,14 +10,15 @@ export function FormInput() {
       const response = await api.post('/pool', {
         title: title,
       })
+      console.log('🚀 ~ file: Input.tsx:13 ~ handleSubmit ~ response', response)
       const { code } = response.data
-      await navigator.clipboard.writeText(code)
-      alert(
-        'Bolão criado com sucesso, o código foi copiado para a área de transferência'
-      )
+      // await navigator.clipboard.writeText(code)
+      // alert(
+      //   'Bolão criado com sucesso, o código foi copiado para a área de transferência'
+      // )
     } catch (error) {
       console.log(error)
-      alert('Erro, tente novamente mais tarde.')
+      // alert('Erro, tente novamente mais tarde.')
     }
   }
   return (

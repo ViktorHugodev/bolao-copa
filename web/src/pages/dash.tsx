@@ -27,14 +27,15 @@ export default function Dash(props: HomeProps) {
       const response = await api.post('/pool', {
         title: title,
       })
+      console.log('🚀 ~ file: dash.tsx:30 ~ handleSubmit ~ response', response.data)
       const { code } = response.data
-      await navigator.clipboard.writeText(code)
-      alert(
-        'Bolão criado com sucesso, o código foi copiado para a área de transferência'
-      )
+      // await navigator.clipboard.writeText(code)
+      // alert(
+      //   'Bolão criado com sucesso, o código foi copiado para a área de transferência'
+      // )
     } catch (error) {
       console.log(error)
-      alert('Erro, tente novamente mais tarde.')
+      // alert('Erro, tente novamente mais tarde.')
     }
   }
 

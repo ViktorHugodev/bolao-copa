@@ -39,7 +39,7 @@ export function Game({ game, poolId,refectGames }: Props) {
     .locale(ptBR)
     .format('DD [de] MMMM [de] YYYY [ás] HH:00[h]')
 
-  console.log('GAME =>', )
+
   async function handleConfirmGuess(event: FormEvent) {
     event.preventDefault()
     try {
@@ -52,10 +52,11 @@ export function Game({ game, poolId,refectGames }: Props) {
           theme: 'dark',
         })
       }
-      await api.post(`/pools/${poolId}/games/${game.id}`, {
+      const res = await api.post(`/pools/${poolId}/games/${game.id}`, {
         firstTeamGoals: Number(firsTeamGoals),
         secondTeamGoals: Number(secondTeamGoals),
       })
+      console.log('REs +> game ln 59', res.data)
       toast('Palpite enviado com sucesso ', {
         position: 'bottom-center',
         autoClose: 5000,
@@ -64,8 +65,8 @@ export function Game({ game, poolId,refectGames }: Props) {
       })
       return refectGames()
     } catch (error) {
-      console.log('ERROR => ln38', error)
-      return toast('Não foi possível realizer esse palpite ', {
+      console.log('ERROR => ln38', error.response.data.message)
+      return toast(error.response.data.message, {
         position: 'bottom-center',
         autoClose: 5000,
         type: 'error',
