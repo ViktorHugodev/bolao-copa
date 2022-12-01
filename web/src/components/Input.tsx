@@ -33,8 +33,8 @@ export function FormInput() {
   }
 
   return (
-    <div className='flex h-14 w-full gap-2 flex-col px-4'>
-      <h1 className='mt-15 max-sm:mt-2 max-sm:text-2xl mt-10 text-white font-bold text-3xl max-sm:text-center leading-tight'>
+    <div className='flex  w-full gap-2 flex-col px-4'>
+      <h1 className='max-sm:mt-2 max-sm:text-2xl mt-10 text-white font-bold text-5xl max-sm:text-center leading-tight'>
         Crie seu próprio bolão da copa e compartilhe entre amigos!
       </h1>
       <form

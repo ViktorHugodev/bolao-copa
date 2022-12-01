@@ -5,6 +5,7 @@ import checkBoxImg from '../assets/icon-check.svg'
 import logoImg from '../assets/logo.svg'
 
 import { SSRAuth } from '../authRoutes/SSRAuth'
+import { FormInput } from '../components/Input'
 import { IUser } from '../context/AuthContext'
 import { setupAPIClient } from '../lib/api'
 import { api } from '../lib/apiClient'
@@ -40,43 +41,17 @@ export default function Dash(props: HomeProps) {
   }
 
   return (
-    <div className='max-w-6xl max-sm:mt-10 grid grid-cols-2 max-sm:flex h-screen max-sm:items-start items-center mx-auto gap-28 max-sm:gap-4 px-6'>
+    <div className='max-w-6xl max-sm:mt-10 mt-10 grid grid-cols-2 max-sm:flex h-screen max-sm:items-start  mx-auto gap-28 max-sm:gap-4 px-6'>
       <main>
-
-        <h1 className='mt-15 max-sm:mt-2 max-sm:text-2xl text-white font-bold text-5xl leading-tight'>
-          Crie seu próprio bolão da copa e compartilhe entre amigos!
-        </h1>
-        <h2 className='text-white'>Olá {props.user?.name}</h2>
-        <div className='flex items-center max-sm:mt-2 mt-10 gap-2'>
+        <FormInput />
+        <div className='flex items-center max-sm:mt-2 mt-10 gap-2 text-center justify-center'>
           {/* <Image src={usersAvatarImg} alt='Avatar de usuários' /> */}
           <strong className='text-gray-100 text-lg'>
             <span className='text-ignite-500'>+ {props.usersCount}</span>{' '}
             pessoas já estão usando
           </strong>
         </div>
-        <form onSubmit={handleSubmit} className='mt-10'>
-          <div className='flex h-14 max-sm:h-40 gap-2 max-sm:flex-col'>
-            <input
-              required
-              className='bg-gray-800 px-6 max-sm:h-14 max-sm:flex-2 py-4 flex-1 rounded text-sm border border-gray-600 text-gray-100'
-              type='text'
-              placeholder='Qual nome do seu bolão?'
-              onChange={event => setTitle(event.target.value)}
-              value={title}
-            />
-
-            <button
-              className='bg-yellow-500 max-sm:h-20 hover:bg-yellow-600 px-6 py-4 text-gray-900 font-bold  rounded uppercase text-sm whitespace-nowrap'
-              type='submit'
-            >
-              CRIAR MEU BOLÃO
-            </button>
-          </div>
-          <p className='text-gray-300 text-sm mt-4 max-sm:mt-10 leading-relaxed'>
-            Após criar seu bolão, você receberá um código único que poderá usar
-            para convidar outras pessoas 🚀
-          </p>
-        </form>
+       
         <div className='mt-10 pt-10 max-sm:border-t max-sm:flex-col border-gray-600 flex items-center justify-between text-gray-100'>
           <div className='flex gap-4 items-center'>
             <Image src={checkBoxImg} alt='' />
