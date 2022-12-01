@@ -29,7 +29,7 @@ export default function Dash(props: HomeProps) {
       })
       console.log('🚀 ~ file: dash.tsx:30 ~ handleSubmit ~ response', response.data)
       const { code } = response.data
-      // await navigator.clipboard.writeText(code)
+      await navigator.clipboard.writeText(code)
       // alert(
       //   'Bolão criado com sucesso, o código foi copiado para a área de transferência'
       // )

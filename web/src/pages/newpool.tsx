@@ -5,6 +5,7 @@ import { Button } from '../components/Button'
 import { PoolCard } from '../components/PoolCard'
 import { setupAPIClient } from '../lib/api'
 import { api } from '../lib/apiClient'
+
 import { ToastContainer, toast } from 'react-toastify'
 import { FormInput } from '../components/Input'
 interface IPoolsPage {

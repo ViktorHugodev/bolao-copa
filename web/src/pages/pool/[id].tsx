@@ -63,11 +63,10 @@ export default function Pool({ poolsDetails }: PoolProps) {
 
           <ParticipantsAvatar participants={poolsDetails.participants} />
         </div>
-  
       </div>
-      <div className='flex items-center justify-center'>
-        <GameCard poolId={query.id}/>
-      </div>
+   
+      <GameCard poolId={query.id}/>
+
     </>
   )
 }

@@ -47,7 +47,7 @@ export function Game({ game, poolId,refectGames }: Props) {
       if (!firsTeamGoals.trim() || !secondTeamGoals.trim()) {
         return toast('Por favor preencha os palpites do jogo', {
           position: 'bottom-center',
-          autoClose: 5000,
+          autoClose: 2000,
           type: 'error',
           theme: 'dark',
         })
@@ -59,7 +59,7 @@ export function Game({ game, poolId,refectGames }: Props) {
       console.log('REs +> game ln 59', res.data)
       toast('Palpite enviado com sucesso ', {
         position: 'bottom-center',
-        autoClose: 5000,
+        autoClose: 2000,
         type: 'success',
         theme: 'dark',
       })
@@ -68,7 +68,7 @@ export function Game({ game, poolId,refectGames }: Props) {
       console.log('ERROR => ln38', error.response.data.message)
       return toast(error.response.data.message, {
         position: 'bottom-center',
-        autoClose: 5000,
+        autoClose: 2000,
         type: 'error',
         theme: 'dark',
       })
@@ -78,7 +78,7 @@ export function Game({ game, poolId,refectGames }: Props) {
   }
   return (
     <>
-      <div className='mt-10 p-4 rounded-md w-[400px] mx-auto border border-gray-600'>
+      <div className='mt-10 p-6 rounded-md w-full mx-auto border border-gray-600'>
         <strong className='text-center flex font-normal items-center justify-center text-gray-100'>
           {' '}
           {getName(game.firstTeamCountryCode)} vs.{' '}

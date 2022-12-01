@@ -36,7 +36,7 @@ export function GameCard({ poolId }: IGameCard) {
     getFetchGames()
   }, [poolId])
   return (
-    <div>
+    <div className='w-full flex flex-col items-center justify-center mx-auto px-4'>
       {games?.map((game: any) => (
         <Game 
         refectGames={getFetchGames}

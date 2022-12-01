@@ -22,7 +22,7 @@ export default function MyPools({ pools }: IPoolsPage) {
         console.log('AQUI')
         return toast('Informe o código do bolão ', {
           position: 'bottom-center',
-          autoClose: 5000,
+          autoClose: 2000,
           type: 'error',
           theme: 'dark',
         })
@@ -37,7 +37,7 @@ export default function MyPools({ pools }: IPoolsPage) {
 
       toast('Você entrou nesse bolão', {
         position: 'bottom-center',
-        autoClose: 5000,
+        autoClose: 2000,
         type: 'success',
         theme: 'dark',
       })
@@ -51,7 +51,7 @@ export default function MyPools({ pools }: IPoolsPage) {
       if (error.response?.data?.message === 'Pool not found') {
         return toast('Bolão não encontrado', {
           position: 'bottom-center',
-          autoClose: 5000,
+          autoClose: 2000,
           type: 'error',
           theme: 'dark',
         })
@@ -60,7 +60,7 @@ export default function MyPools({ pools }: IPoolsPage) {
       if (error.response?.data?.message === 'You already joined this pool') {
         return toast('Você já participa desse bolão', {
           position: 'bottom-center',
-          autoClose: 5000,
+          autoClose: 2000,
           type: 'error',
           theme: 'dark',
         })
@@ -68,14 +68,14 @@ export default function MyPools({ pools }: IPoolsPage) {
 
       toast('Erro, tente novamente mais tarde.', {
         position: 'bottom-center',
-        autoClose: 5000,
+        autoClose: 2000,
         type: 'error',
         theme: 'dark',
       })
     }
   }
   return (
-    <div className='mx-auto w-full flex flex-col items-center mt-10'>
+    <div className='mx-auto w-full flex flex-col items-center mt-10 px-4'>
       <div className='flex max-sm:flex-col max-sm:gap-2'>
         <input
           required
