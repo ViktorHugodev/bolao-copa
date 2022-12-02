@@ -6,7 +6,7 @@ import ptBR from 'dayjs/locale/pt-br'
 import { Check } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
 import { api } from '../lib/apiClient'
-import { toast,ToastContainer } from 'react-toastify'
+import { useToast } from '@chakra-ui/toast'
 interface GuessProps {
   id: string
   gameId: string
@@ -28,13 +28,16 @@ interface Props {
   game: GameProps
   poolId: string
   refectGames: () => void
+  gameTest: any
 }
 
-export function Game({ game, poolId,refectGames }: Props) {
-
+export function Game({ game, poolId,refectGames, gameTest }: Props) {
+  // console.log('GAME =>', game)
+  // console.log('GAME TEST =>', gameTest)
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const toast = useToast()
   const formattedDate = dayjs(game.date).add(3, 'hours')
     .locale(ptBR)
     .format('DD [de] MMMM [de] YYYY [ás] HH:00[h]')
@@ -45,32 +48,32 @@ export function Game({ game, poolId,refectGames }: Props) {
     try {
       setIsLoading(true)
       if (!firsTeamGoals.trim() || !secondTeamGoals.trim()) {
-        return toast('Por favor preencha os palpites do jogo', {
-          position: 'bottom-center',
-          autoClose: 2000,
-          type: 'error',
-          theme: 'dark',
+        return toast({
+          title: 'Por favor preencha com os palpites do jogo.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
         })
       }
-      const res = await api.post(`/pools/${poolId}/games/${game.id}`, {
+      await api.post(`/pools/${poolId}/games/${game.id}`, {
         firstTeamGoals: Number(firsTeamGoals),
         secondTeamGoals: Number(secondTeamGoals),
       })
-      console.log('REs +> game ln 59', res.data)
-      toast('Palpite enviado com sucesso ', {
-        position: 'bottom-center',
-        autoClose: 2000,
-        type: 'success',
-        theme: 'dark',
+
+      toast({
+        title: 'Palpite enviado com sucesso',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
       return refectGames()
     } catch (error) {
       console.log('ERROR => ln38', error.response.data.message)
-      return toast(error.response.data.message, {
-        position: 'bottom-center',
-        autoClose: 2000,
-        type: 'error',
-        theme: 'dark',
+      return toast({
+        title: error.response.data.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
       })
     } finally {
       setIsLoading(false)
@@ -117,7 +120,6 @@ export function Game({ game, poolId,refectGames }: Props) {
         </form>
       </div>
       <div className='h-1 w-full bg-yellow-500'>
-      <ToastContainer />
       </div>
     </>
   )

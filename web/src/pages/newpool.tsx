@@ -15,12 +15,10 @@ interface IPoolsPage {
 export default function NewPool({  }: IPoolsPage) {
 
   return (
-    <div className='mx-auto w-full flex flex-col items-center mt-10'>
+    <div className='mx-auto w-full max-w-[1080px] flex flex-col items-center mt-10'>
       <div className='flex'>
       <FormInput />
       </div>
- 
-      <ToastContainer />
     </div>
   )
 }

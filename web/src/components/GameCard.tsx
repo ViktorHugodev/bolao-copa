@@ -14,13 +14,14 @@ interface IGame {
 export function GameCard({ poolId }: IGameCard) {
   const [isLoading, setIsLoading] = useState(false)
   const [games, setGames] = useState<any>()
-
+  const[allGames, setAllGames] = useState<any>([])
   async function getFetchGames() {
     try {
       setIsLoading(true)
       const response = await api.get(`/pools/${poolId}/games`)
       setGames(response.data.games)
-      console.log('GAGMES =>', response.data.games)
+      setAllGames(response.data.gameTest)
+      console.log('RSPONSE _.',response.data )
     } catch (error) {
       console.log('ERROR =>', error)
       // toast.show({
@@ -39,6 +40,7 @@ export function GameCard({ poolId }: IGameCard) {
     <div className='w-full flex flex-col items-center justify-center mx-auto px-4'>
       {games?.map((game: any) => (
         <Game 
+        gameTest={allGames}
         refectGames={getFetchGames}
         key={game.id} game={game} poolId={poolId}/>
       ))}

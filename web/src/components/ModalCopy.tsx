@@ -71,7 +71,7 @@ export default function ModalCopy({ isOpen, setIsOpen, code }: IModalCopy) {
                     <div className='flex items-center '>
                       <CopyToClipboard
                         text={code}
-                        className='text-gray-200 flex-1 text-center border rounded-md py-2 px-4 bg-gray-800 text-3xl font-bold'
+                        className='text-gray-200 cursor-pointer flex-1 text-center border rounded-md py-2 px-4 bg-gray-800 text-3xl font-bold'
                         onCopy={handleCopyText}
                       >
                         <strong className=''>

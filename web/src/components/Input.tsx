@@ -3,13 +3,17 @@ import { api } from '../lib/apiClient'
 import ModalCopy from './ModalCopy'
 import { toast } from 'react-toastify'
 import { Loading } from './Loading'
+import { useToast } from '@chakra-ui/toast'
 
 export function FormInput() {
+  const toast = useToast()
   const [title, setTitle] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [code, setCode] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   async function handleSubmit(event: FormEvent) {
+
+    
     event.preventDefault()
     setIsLoading(true)
     try {
@@ -19,14 +23,22 @@ export function FormInput() {
       console.log('🚀 ~ file: Input.tsx:13 ~ handleSubmit ~ response', response.data)
       const { code:copeapi } = response.data
       setCode(copeapi)
-      console.log('code', code)
- 
-        setIsOpen(true)
-
+      toast({
+        title: "Bolão criado com sucesso.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+      setIsOpen(true)
       
    
     } catch (error) {
-      console.log(error)
+      toast({
+        title: "Erro ao criar o bolão",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
       setIsLoading(false)
     }

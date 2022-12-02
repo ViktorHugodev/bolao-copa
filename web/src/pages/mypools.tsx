@@ -1,45 +1,39 @@
-import { useToast } from '@chakra-ui/toast'
 import { useState } from 'react'
+import { useToast } from '@chakra-ui/toast'
 import { SSRAuth } from '../authRoutes/SSRAuth'
 import { Button } from '../components/Button'
 import { PoolCard } from '../components/PoolCard'
 import { setupAPIClient } from '../lib/api'
 import { api } from '../lib/apiClient'
-import { ToastContainer, toast } from 'react-toastify'
+
 interface IPoolsPage {
   pools: any
 }
 
 export default function MyPools({ pools }: IPoolsPage) {
-  console.log('🚀 ~ file: mypools.tsx ~ line 9 ~ MyPools ~ pools', pools)
   const [isLoading, setIsLoading] = useState(false)
   const [code, setCode] = useState('')
-
+  const toast = useToast()
   async function handleJoinPool() {
     try {
       setIsLoading(true)
       if (!code.trim()) {
-        console.log('AQUI')
-        return toast('Informe o código do bolão ', {
-          position: 'bottom-center',
-          autoClose: 2000,
-          type: 'error',
-          theme: 'dark',
+        return toast({
+          title: 'Por favor digite o código do bolão.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
         })
       }
       const res = await api.post('/pool/join', {
         code,
       })
-      console.log(
-        '🚀 ~ file: mypools.tsx ~ line 31 ~ handleJoinPool ~ res',
-        res
-      )
 
-      toast('Você entrou nesse bolão', {
-        position: 'bottom-center',
-        autoClose: 2000,
-        type: 'success',
-        theme: 'dark',
+      toast({
+        title: 'Você entrou nesse bolão.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
       setCode('')
     } catch (error) {
@@ -49,29 +43,30 @@ export default function MyPools({ pools }: IPoolsPage) {
       )
       setIsLoading(false)
       if (error.response?.data?.message === 'Pool not found') {
-        return toast('Bolão não encontrado', {
-          position: 'bottom-center',
-          autoClose: 2000,
-          type: 'error',
-          theme: 'dark',
+        return toast({
+          title: 'Bolão não encontrado',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
         })
       }
 
       if (error.response?.data?.message === 'You already joined this pool') {
-        return toast('Você já participa desse bolão', {
-          position: 'bottom-center',
-          autoClose: 2000,
-          type: 'error',
-          theme: 'dark',
+        return toast({
+          title: 'Você já participa desse bolão.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
         })
       }
-
-      toast('Erro, tente novamente mais tarde.', {
-        position: 'bottom-center',
-        autoClose: 2000,
-        type: 'error',
-        theme: 'dark',
+      toast({
+        title: 'Erro ao tentar entrar no bolão.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
       })
+    } finally {
+      setIsLoading(false)
     }
   }
   return (
@@ -87,6 +82,7 @@ export default function MyPools({ pools }: IPoolsPage) {
         />
 
         <Button
+          isLoading={isLoading}
           title='Buscar bolão por código'
           handleJoinPool={handleJoinPool}
         />
@@ -96,18 +92,12 @@ export default function MyPools({ pools }: IPoolsPage) {
           return <PoolCard key={pool.id} data={pool} />
         })}
       </div>
-
-      <ToastContainer />
     </div>
   )
 }
 export const getServerSideProps = SSRAuth(async context => {
   const apiClient = setupAPIClient(context)
   const pools = await apiClient.get('/pools')
-  console.log(
-    '🚀 ~ file: mypools.tsx ~ line 12 ~ getServerSideProps ~ user',
-    pools.data
-  )
 
   return {
     props: {

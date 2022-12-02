@@ -3,7 +3,9 @@ import { Header } from '../components/Header'
 import { AuthContextProvider } from '../context/AuthContext'
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer, toast } from 'react-toastify'
+import { createStandaloneToast } from '@chakra-ui/toast'
+
+const { ToastContainer, toast } = createStandaloneToast()
 export default function App({
   Component,
   pageProps: { ...pageProps },
@@ -11,8 +13,9 @@ export default function App({
   return (
     <AuthContextProvider>
       <Header />
-      <Component {...pageProps} />
       <ToastContainer />
+      <Component {...pageProps} />
+
     </AuthContextProvider>
   )
 }

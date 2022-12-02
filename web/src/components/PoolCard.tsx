@@ -3,9 +3,7 @@ import Link from 'next/link'
 import { ParticipantsAvatar } from './ParticipantsAvatar'
 
 export function PoolCard({ data }: any) {
-  console.log('DATa =>', data)
   const shortName = data.owner.name.split(' ')[0]
-  console.log('shortName =>', shortName)
   return (
     <Link href={`pool/${data.id}`}>
       <div className='mt-10 rounded-md w-full mx-auto border border-gray-600 hover:border-1 hover:border-gray-300 cursor-pointer'>
