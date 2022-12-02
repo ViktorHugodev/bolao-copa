@@ -1,6 +1,5 @@
 import Image from 'next/image'
 export function ParticipantsAvatar({ participants }) {
-  console.log('Participants', participants)
   return (
     <div className='flex items-center'>
       {participants.map(participant => (

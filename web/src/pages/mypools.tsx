@@ -1,19 +1,25 @@
-import { useState } from 'react'
 import { useToast } from '@chakra-ui/toast'
+import { useEffect, useState } from 'react'
 import { SSRAuth } from '../authRoutes/SSRAuth'
 import { Button } from '../components/Button'
 import { PoolCard } from '../components/PoolCard'
-import { setupAPIClient } from '../lib/api'
 import { api } from '../lib/apiClient'
 
 interface IPoolsPage {
-  pools: any
+  poolsData: any
 }
 
-export default function MyPools({ pools }: IPoolsPage) {
+export default function MyPools() {
   const [isLoading, setIsLoading] = useState(false)
   const [code, setCode] = useState('')
+  const [pools, setPools] = useState<any>([])
   const toast = useToast()
+
+  async function refetchGames(){
+    const pools = await api.get('/pools')
+    setPools(pools.data.pools)
+  }
+
   async function handleJoinPool() {
     try {
       setIsLoading(true)
@@ -25,7 +31,7 @@ export default function MyPools({ pools }: IPoolsPage) {
           isClosable: true,
         })
       }
-      const res = await api.post('/pool/join', {
+      await api.post('/pool/join', {
         code,
       })
 
@@ -67,8 +73,14 @@ export default function MyPools({ pools }: IPoolsPage) {
       })
     } finally {
       setIsLoading(false)
+      refetchGames()
     }
   }
+
+  useEffect(() => {
+    refetchGames()
+  },[])
+
   return (
     <div className='mx-auto w-full flex flex-col items-center mt-10 px-4'>
       <div className='flex max-sm:flex-col max-sm:gap-2'>
@@ -96,13 +108,8 @@ export default function MyPools({ pools }: IPoolsPage) {
   )
 }
 export const getServerSideProps = SSRAuth(async context => {
-  const apiClient = setupAPIClient(context)
-  const pools = await apiClient.get('/pools')
-
   return {
     props: {
-      pools: pools.data.pools,
-      // user: user?.data.user,
     },
   }
 })

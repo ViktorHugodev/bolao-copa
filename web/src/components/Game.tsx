@@ -31,17 +31,17 @@ interface Props {
   gameTest: any
 }
 
-export function Game({ game, poolId,refectGames, gameTest }: Props) {
+export function Game({ game, poolId, refectGames, gameTest }: Props) {
   // console.log('GAME =>', game)
   // console.log('GAME TEST =>', gameTest)
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
-  const formattedDate = dayjs(game.date).add(3, 'hours')
+  const formattedDate = dayjs(game.date)
+    .add(3, 'hours')
     .locale(ptBR)
     .format('DD [de] MMMM [de] YYYY [ás] HH:00[h]')
-
 
   async function handleConfirmGuess(event: FormEvent) {
     event.preventDefault()
@@ -92,35 +92,40 @@ export function Game({ game, poolId,refectGames, gameTest }: Props) {
           {formattedDate}
         </span>
         <form onSubmit={handleConfirmGuess}>
-          <div className='flex justify-center items-center'>
-            <Team
-              position='left'
-              code={game.firstTeamCountryCode}
-              value={game.bet ? String(game.bet.firstTeamGoals) : firsTeamGoals}
-              setFirstTeamPoints={setFirstTeamGoals}
-            />
-            <GrClose size={32} className='mx-2' />
-            <Team
-              value={game.bet ? String(game.bet.secondTeamGoals) : secondTeamGoals}
-              setSecondTeamPoints={setSecondTeamGoals}
-              position='right'
-              code={game.secondTeamCountryCode}
-            />
-          </div>
+          <div className='flex justify-center items-center flex-col'>
+            <div className='flex items-center justify-center'>
+              <Team
+                position='left'
+                code={game.firstTeamCountryCode}
+                value={
+                  game.bet ? String(game.bet.firstTeamGoals) : firsTeamGoals
+                }
+                setFirstTeamPoints={setFirstTeamGoals}
+              />
+              <GrClose size={32} className='mx-2' />
+              <Team
+                value={
+                  game.bet ? String(game.bet.secondTeamGoals) : secondTeamGoals
+                }
+                setSecondTeamPoints={setSecondTeamGoals}
+                position='right'
+                code={game.secondTeamCountryCode}
+              />
+            </div>
 
-          {!game.bet && (
-            <button
-              type='submit'
-              className='bg-green-600 w-full flex gap-2 justify-center items-center rounded-md mt-4 hover:bg-green-700 text-white font-bold uppercase text-sm'
-            >
-              <Check size={32} />
-              Confirmar palpite
-            </button>
-          )}
+            {!game.bet && (
+              <button
+                type='submit'
+                className='bg-green-600 px-10 py-1 flex gap-2 justify-center items-center rounded-md mt-4 hover:bg-green-700 text-white font-bold uppercase text-sm'
+              >
+                <Check size={32} />
+                Confirmar palpite
+              </button>
+            )}
+          </div>
         </form>
       </div>
-      <div className='h-1 w-full bg-yellow-500'>
-      </div>
+      <div className='h-1 w-full bg-yellow-500'></div>
     </>
   )
 }

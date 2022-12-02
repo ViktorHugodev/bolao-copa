@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import previewMobileImg from '../assets/app-nlw-copa-preview.png'
 import checkBoxImg from '../assets/icon-check.svg'
 import logoImg from '../assets/logo.svg'
@@ -17,29 +17,26 @@ interface HomeProps {
   user: IUser
 }
 
-export default function Dash(props: HomeProps) {
-  const [title, setTitle] = useState('')
+export default function Dash() {
+  const [info, setInfo] = useState<any>([])
 
-
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault()
-
-    try {
-      const response = await api.post('/pool', {
-        title: title,
-      })
-      console.log('🚀 ~ file: dash.tsx:30 ~ handleSubmit ~ response', response.data)
-      const { code } = response.data
-      await navigator.clipboard.writeText(code)
-      // alert(
-      //   'Bolão criado com sucesso, o código foi copiado para a área de transferência'
-      // )
-    } catch (error) {
-      console.log(error)
-      // alert('Erro, tente novamente mais tarde.')
-    }
+  async function getData(){
+    const [poolRequest, betsRequest, usersRequest] = await Promise.all([
+      api.get('/pools/count'),
+      api.get('/bets/count'),
+      api.get('/users/count'),
+    ])
+    setInfo({
+      pools:poolRequest.data.count,
+      bets:betsRequest.data.count,
+      users:usersRequest.data.count,
+    })
   }
 
+
+  useEffect(() => {
+    getData()
+  },[])
   return (
     <div className='max-w-6xl max-sm:mt-10 mt-10 grid grid-cols-2 max-sm:flex h-screen max-sm:items-start  mx-auto gap-28 max-sm:gap-4 px-6'>
       <main>
@@ -47,7 +44,7 @@ export default function Dash(props: HomeProps) {
         <div className='flex items-center max-sm:mt-2 mt-10 gap-2 text-center justify-center'>
           {/* <Image src={usersAvatarImg} alt='Avatar de usuários' /> */}
           <strong className='text-gray-100 text-lg'>
-            <span className='text-ignite-500'>+ {props.usersCount}</span>{' '}
+            <span className='text-ignite-500'>+ {info?.users}</span>{' '}
             pessoas já estão usando
           </strong>
         </div>
@@ -56,7 +53,7 @@ export default function Dash(props: HomeProps) {
           <div className='flex gap-4 items-center'>
             <Image src={checkBoxImg} alt='' />
             <div className='flex flex-col'>
-              <strong className='text-2xl'>+ {props.poolsCount}</strong>
+              <strong className='text-2xl'>+ {info?.pools}</strong>
               <span className='font-normal'>Bolões criados</span>
             </div>
           </div>
@@ -64,7 +61,7 @@ export default function Dash(props: HomeProps) {
           <div className='flex gap-4 max-sm:mt-10 max-sm:w-full max-sm:border-t max-sm:justify-center border-gray-600 items-center'>
             <Image src={checkBoxImg} alt='' className='max-sm:mt-12'/>
             <div className='flex flex-col max-sm:mt-12'>
-              <strong className='text-2xl'>+ {props.betsCount}</strong>
+              <strong className='text-2xl'>+ {info?.bets}</strong>
               <span>Palpites enviados</span>
             </div>
           </div>
@@ -81,20 +78,10 @@ export default function Dash(props: HomeProps) {
 }
 
 export const getServerSideProps = SSRAuth(async context => {
-  const apiClient = setupAPIClient(context)
-  const [poolRequest, betsRequest, usersRequest] = await Promise.all([
-    apiClient.get('/pools/count'),
-    apiClient.get('/bets/count'),
-    apiClient.get('/users/count'),
-  ])
-
 
   return {
     props: {
-      poolsCount: poolRequest.data.count,
-      betsCount: betsRequest.data.count,
-      usersCount: usersRequest.data.count,
-      // user: user?.data.user,
+
     },
   }
 })

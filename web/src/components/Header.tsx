@@ -27,12 +27,12 @@ export function Header() {
           >
             Meus bolões
           </Link>
-          <Link
+          {/* <Link
             href='/mypools'
             className='text-yellow-500 max-sm:text-[12px] hover:text-yellow-600'
           >
             Encontrar bolão
-          </Link>
+          </Link> */}
         </nav>}
        
       </div>
