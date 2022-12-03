@@ -15,6 +15,12 @@ interface GuessProps {
   participantId: string
   firstTeamGoals: number
   secondTeamGoals: number
+  participant: {
+    user: {
+      name: string
+      avatarUrl: string
+    }
+  }
 }
 
 export interface GameProps {
@@ -25,6 +31,7 @@ export interface GameProps {
   date: string
 }
 
+
 interface Props {
   game: GameProps
   poolId: string
@@ -32,12 +39,20 @@ interface Props {
   gameTest: any
 }
 
+interface IAllGames {
+  date: Date
+  firstTeamGoals: number
+  secondTeamGoals: number
+  id: string
+  bets:GuessProps[]
+}
+
 export function Game({ game, poolId, refectGames }: Props) {
   // console.log('GAME TEST =>', gameTest)
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [allBetsGames, setAllBetsGames] = useState<any>([])
+  const [allBetsGames, setAllBetsGames] = useState<IAllGames>()
   const toast = useToast()
   const formattedDate = dayjs(game.date)
     .add(3, 'hours')
