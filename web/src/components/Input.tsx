@@ -1,7 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { api } from '../lib/apiClient'
 import ModalCopy from './ModalCopy'
-import { toast } from 'react-toastify'
 import { Loading } from './Loading'
 import { useToast } from '@chakra-ui/toast'
 

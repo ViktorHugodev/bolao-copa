@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { X } from 'phosphor-react'
-import { toast } from 'react-toastify'
+import { useToast } from '@chakra-ui/toast'
 interface IModalCopy {
   isOpen: boolean
   setIsOpen: (state: boolean) => void
@@ -10,7 +10,7 @@ interface IModalCopy {
 }
 export default function ModalCopy({ isOpen, setIsOpen, code }: IModalCopy) {
   const [text, setText] = useState(code)
-
+  const toast = useToast()
   const [copy, setCopy] = useState(false)
   function closeModal() {
     setIsOpen(false)
@@ -21,12 +21,13 @@ export default function ModalCopy({ isOpen, setIsOpen, code }: IModalCopy) {
   }
 
   function handleCopyText() {
+
     setCopy(true)
-    toast('Código copiado para a área de transferência', {
-      position: 'top-center',
-      autoClose: 3000,
-      type: 'success',
-      theme: 'dark',
+    return toast({
+      title: "Código copiado para a área de transferência.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
     })
   }
 

@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app'
 import { Header } from '../components/Header'
 import { AuthContextProvider } from '../context/AuthContext'
+import { ChakraProvider } from '@chakra-ui/react'
 import '../styles/global.css'
-import 'react-toastify/dist/ReactToastify.css'
 import { createStandaloneToast } from '@chakra-ui/toast'
 
 export default function App({
@@ -11,11 +11,12 @@ export default function App({
 }: AppProps) {
   const { ToastContainer } = createStandaloneToast()
   return (
-    <AuthContextProvider>
-      <Header />
-      <ToastContainer />
-      <Component {...pageProps} />
-
-    </AuthContextProvider>
+    <ChakraProvider>
+      <AuthContextProvider>
+        <Header />
+        <ToastContainer />
+        <Component {...pageProps} />
+      </AuthContextProvider>
+    </ChakraProvider>
   )
 }
