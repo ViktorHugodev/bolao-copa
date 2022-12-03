@@ -34,8 +34,8 @@ export function InputCustom({
         `}
       >
         {goals.map(gol => (
-          <Option key={gol} value={gol}>
-            {gol}
+          <Option key={gol} value={gol} className='flex items-center justify-center p-1 hover:bg-gray-300'>
+            <span className='font-bold '>{gol}</span>
           </Option>
         ))}
       </Select>

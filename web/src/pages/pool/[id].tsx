@@ -30,10 +30,11 @@ type PoolProps = {
 }
 
 export default function Pool({ poolsDetails }: PoolProps) {
-  console.log('poolsDetails',poolsDetails)
+  // console.log('poolsDetails',poolsDetails)
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState()
   const { query } = useRouter()
+  
 
   async function getDataPoolDetails() {
     try {
@@ -52,6 +53,7 @@ export default function Pool({ poolsDetails }: PoolProps) {
   useEffect(() => {
     getDataPoolDetails()
   }, [query.id, poolsDetails._count])
+
   return (
     <>
       <div className='mx-auto w-full mt-5 h-16 flex px-10 justify-center items-center bg-gray-900 rounded-md'>
@@ -65,7 +67,7 @@ export default function Pool({ poolsDetails }: PoolProps) {
         </div>
       </div>
    
-      <GameCard poolId={query.id}/>
+      <GameCard poolId={query.id} />
 
     </>
   )

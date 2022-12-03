@@ -4,9 +4,10 @@ import { getName } from 'country-list'
 import dayjs from 'dayjs'
 import ptBR from 'dayjs/locale/pt-br'
 import { Check } from 'phosphor-react'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { api } from '../lib/apiClient'
 import { useToast } from '@chakra-ui/toast'
+import Image from 'next/image'
 interface GuessProps {
   id: string
   gameId: string
@@ -31,17 +32,31 @@ interface Props {
   gameTest: any
 }
 
-export function Game({ game, poolId, refectGames, gameTest }: Props) {
-  // console.log('GAME =>', game)
+export function Game({ game, poolId, refectGames }: Props) {
   // console.log('GAME TEST =>', gameTest)
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [allBetsGames, setAllBetsGames] = useState([])
   const toast = useToast()
   const formattedDate = dayjs(game.date)
     .add(3, 'hours')
     .locale(ptBR)
     .format('DD [de] MMMM [de] YYYY [ás] HH:00[h]')
+
+  async function getGameInformation() {
+    try {
+      setIsLoading(true)
+      const response = await api.get(`/pools/${poolId}/games/${game.id}`)
+      if (response.data.allGames.length > 0) {
+        setAllBetsGames(response.data.allGames[0])
+        console.log('RESPONSE', response.data.allGames[0])
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   async function handleConfirmGuess(event: FormEvent) {
     event.preventDefault()
@@ -79,6 +94,9 @@ export function Game({ game, poolId, refectGames, gameTest }: Props) {
       setIsLoading(false)
     }
   }
+  useEffect(() => {
+    getGameInformation()
+  }, [])
   return (
     <>
       <div className='mt-10 p-6 rounded-md w-full mx-auto border border-gray-600'>
@@ -112,7 +130,30 @@ export function Game({ game, poolId, refectGames, gameTest }: Props) {
                 code={game.secondTeamCountryCode}
               />
             </div>
+            <div className='flex flex-col w-full'>
+              {allBetsGames?.bets?.map((bet, index) => {
+                return (
+                  <div
+                    key={bet.id}
+                    className='flex items-center  w-full font-bold justify-center text-gray-200 gap-2 relative'
+                  >
+                    <Image
+                      width={32}
+                      height={32}
+                      className='rounded-full absolute left-0 '
+                      src={bet.participant?.user.avatarUrl}
+                      alt=''
+                    />
 
+                    <div className='text-center flex gap-6 items-center justify-between mb-1'>
+                      <span className='border py-1 px-2  rounded-sm bg-gray-700'>{bet?.firstTeamGoals}</span>
+                      <span className='text-gray-700'>X</span>
+                      <span className='border py-1 px-2  rounded-sm bg-gray-700'>{bet?.secondTeamGoals}</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
             {!game.bet && (
               <button
                 type='submit'
