@@ -5,11 +5,11 @@ import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { createStandaloneToast } from '@chakra-ui/toast'
 
-const { ToastContainer, toast } = createStandaloneToast()
 export default function App({
   Component,
   pageProps: { ...pageProps },
 }: AppProps) {
+  const { ToastContainer } = createStandaloneToast()
   return (
     <AuthContextProvider>
       <Header />

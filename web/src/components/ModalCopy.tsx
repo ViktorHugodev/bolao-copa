@@ -10,7 +10,7 @@ interface IModalCopy {
 }
 export default function ModalCopy({ isOpen, setIsOpen, code }: IModalCopy) {
   const [text, setText] = useState(code)
-  console.log('CODEmodal', code)
+
   const [copy, setCopy] = useState(false)
   function closeModal() {
     setIsOpen(false)
