@@ -37,7 +37,7 @@ export function Game({ game, poolId, refectGames }: Props) {
   const [firsTeamGoals, setFirstTeamGoals] = useState('')
   const [secondTeamGoals, setSecondTeamGoals] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [allBetsGames, setAllBetsGames] = useState([])
+  const [allBetsGames, setAllBetsGames] = useState<any>([])
   const toast = useToast()
   const formattedDate = dayjs(game.date)
     .add(3, 'hours')
