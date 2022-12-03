@@ -47,7 +47,7 @@ export function GameCard({ poolId }: IGameCard) {
         // console.log('filtered', filteredGame)
         const formatedGameDate = dayjs(game.date)
         .format('DD/MM/YYYY')
-        const today = dayjs(new Date).add(1,'day').format('DD/MM/YYYY')
+        const today = dayjs(new Date).add(2,'day').format('DD/MM/YYYY')
         
         if (formatedGameDate < today) {
           return (
