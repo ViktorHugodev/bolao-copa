@@ -8,8 +8,6 @@
 # :pushpin: Conteúdo
 
 * [Preview](#framed_picture-preview)
-* [Projetos](#computer-projetos)
-* [Autores](#computer-autores)
 * [Licença](#closed_book-licença)
 
 
